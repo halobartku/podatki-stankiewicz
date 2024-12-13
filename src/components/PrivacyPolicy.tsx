@@ -14,93 +14,92 @@ export function PrivacyPolicy() {
               className="inline-flex items-center gap-2 px-4 py-3 text-emerald-600 hover:text-emerald-800 transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
-              Back to Home
+              Powrót do strony głównej
             </Link>
           </div>
         </div>
 
         {/* Content */}
         <article className="max-w-4xl mx-auto px-4 py-6 text-emerald-700">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-900 mb-8">Privacy Policy</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-900 mb-8">Polityka Prywatności</h1>
           
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">1. Introduction</h2>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">1. Wprowadzenie</h2>
           <p>
-            KANKOT sp. z o. o. ("we", "our", or "us") respects your privacy and is committed to protecting your personal data. This privacy policy informs you about how we handle your personal data when you visit our website and tells you about your privacy rights under the General Data Protection Regulation (GDPR).
+            KANCELARIA PODATKOWA JOLANTA STANKIEWICZ ("my", "nas" lub "nasze") szanuje Twoją prywatność i zobowiązuje się do ochrony Twoich danych osobowych. Niniejsza polityka prywatności informuje o tym, jak postępujemy z Twoimi danymi osobowymi podczas odwiedzania naszej strony internetowej oraz o Twoich prawach wynikających z Ogólnego Rozporządzenia o Ochronie Danych (RODO).
           </p>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">2. Contact Details</h2>
-          <p>KANKOT sp. z o. o.</p>
-          <p>Aleja Grunwaldzka 2</p>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">2. Dane kontaktowe</h2>
+          <p>KANCELARIA PODATKOWA JOLANTA STANKIEWICZ</p>
+          <p>ul. KOWALSKA 8-9/D</p>
           <p>82-300 Elbląg</p>
-          <p>Poland</p>
-          <p>Email: <a href="mailto:office@kankot.com" className="text-emerald-500 hover:text-emerald-600">office@kankot.com</a></p>
-          <p>KRS: 0001045980</p>
-          <p>NIP: 5783162660</p>
-          <p>REGON: 525794226</p>
+          <p>Polska</p>
+          <p>Email: <a href="mailto:biuro@podatkistankiewicz.pl" className="text-emerald-500 hover:text-emerald-600">biuro@podatkistankiewicz.pl</a></p>
+          <p>NIP: 5781419439</p>
+          <p>REGON: 387861759</p>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">3. Personal Data We Collect</h2>
-          <p>We may collect and process the following data:</p>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">3. Dane osobowe, które zbieramy</h2>
+          <p>Możemy zbierać i przetwarzać następujące dane:</p>
           <ul className="list-disc pl-5 mt-2">
-            <li>Identity Data (name, title)</li>
-            <li>Contact Data (email address, phone number)</li>
-            <li>Technical Data (IP address, browser type, device information)</li>
-            <li>Usage Data (information about how you use our website)</li>
+            <li>Dane identyfikacyjne (imię, nazwisko)</li>
+            <li>Dane kontaktowe (adres email, numer telefonu)</li>
+            <li>Dane techniczne (adres IP, typ przeglądarki, informacje o urządzeniu)</li>
+            <li>Dane o użytkowaniu (informacje o tym, jak korzystasz z naszej strony)</li>
           </ul>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">4. How We Use Your Data</h2>
-          <p>We use your personal data for:</p>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">4. Jak wykorzystujemy Twoje dane</h2>
+          <p>Wykorzystujemy Twoje dane osobowe do:</p>
           <ul className="list-disc pl-5 mt-2">
-            <li>Providing and managing our services</li>
-            <li>Communicating with you</li>
-            <li>Improving our website and services</li>
-            <li>Marketing (with your consent)</li>
+            <li>Świadczenia i zarządzania naszymi usługami</li>
+            <li>Komunikacji z Tobą</li>
+            <li>Ulepszania naszej strony internetowej i usług</li>
+            <li>Marketingu (za Twoją zgodą)</li>
           </ul>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">5. Your Rights</h2>
-          <p>Under GDPR, you have the right to:</p>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">5. Twoje prawa</h2>
+          <p>Zgodnie z RODO, masz prawo do:</p>
           <ul className="list-disc pl-5 mt-2">
-            <li>Access your personal data</li>
-            <li>Rectify inaccurate personal data</li>
-            <li>Request erasure of your personal data</li>
-            <li>Object to processing of your personal data</li>
-            <li>Request restriction of processing</li>
-            <li>Data portability</li>
-            <li>Withdraw consent at any time</li>
+            <li>Dostępu do swoich danych osobowych</li>
+            <li>Sprostowania niedokładnych danych osobowych</li>
+            <li>Żądania usunięcia swoich danych osobowych</li>
+            <li>Sprzeciwu wobec przetwarzania swoich danych osobowych</li>
+            <li>Żądania ograniczenia przetwarzania</li>
+            <li>Przenoszenia danych</li>
+            <li>Wycofania zgody w dowolnym momencie</li>
           </ul>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">6. Cookies</h2>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">6. Pliki cookie</h2>
           <p>
-            Our website uses cookies to enhance your browsing experience. You can control cookies through your browser settings. We use the following types of cookies:
+            Nasza strona internetowa wykorzystuje pliki cookie w celu poprawy jakości przeglądania. Możesz kontrolować pliki cookie poprzez ustawienia przeglądarki. Używamy następujących rodzajów plików cookie:
           </p>
           <ul className="list-disc pl-5 mt-2">
-            <li>Necessary cookies: Required for the website to function</li>
-            <li>Performance cookies: Used by Vercel Speed Insights to measure and improve website performance</li>
-            <li>Analytics cookies: Help us understand how visitors use our site</li>
-            <li>Marketing cookies: Used to deliver relevant advertisements</li>
+            <li>Niezbędne pliki cookie: Wymagane do prawidłowego funkcjonowania strony</li>
+            <li>Pliki cookie wydajności: Wykorzystywane przez Vercel Speed Insights do mierzenia i poprawy wydajności strony</li>
+            <li>Pliki cookie analityczne: Pomagają nam zrozumieć, jak odwiedzający korzystają z naszej strony</li>
+            <li>Pliki cookie marketingowe: Używane do dostarczania odpowiednich reklam</li>
           </ul>
           <p className="mt-3">
-            We use Vercel Speed Insights to monitor and improve our website's performance. This service collects anonymous performance metrics such as page load times and web vitals. This data helps us identify and fix performance issues to provide a better user experience. No personally identifiable information is collected through this service.
+            Korzystamy z Vercel Speed Insights do monitorowania i poprawy wydajności naszej strony internetowej. Usługa ta zbiera anonimowe metryki wydajności, takie jak czas ładowania strony i wskaźniki web vitals. Dane te pomagają nam identyfikować i naprawiać problemy z wydajnością, aby zapewnić lepsze doświadczenie użytkownika. Poprzez tę usługę nie są zbierane żadne dane osobowe.
           </p>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">7. Data Security</h2>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">7. Bezpieczeństwo danych</h2>
           <p>
-            We have implemented appropriate security measures to prevent your personal data from being accidentally lost, used, accessed, altered, or disclosed in an unauthorized way. We limit access to your personal data to employees, agents, contractors, and other third parties who have a business need to know.
+            Wdrożyliśmy odpowiednie środki bezpieczeństwa, aby zapobiec przypadkowej utracie, wykorzystaniu, dostępowi, zmianie lub ujawnieniu Twoich danych osobowych w sposób nieuprawniony. Ograniczamy dostęp do Twoich danych osobowych do pracowników, agentów, wykonawców i innych stron trzecich, którzy mają uzasadnioną potrzebę biznesową.
           </p>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">8. Updates to This Policy</h2>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">8. Aktualizacje polityki</h2>
           <p>
-            We may update this privacy policy from time to time. We will notify you of any significant changes by posting the new policy on this page and updating the "last updated" date.
+            Możemy aktualizować niniejszą politykę prywatności od czasu do czasu. O wszelkich istotnych zmianach poinformujemy, publikując nową politykę na tej stronie i aktualizując datę "ostatniej aktualizacji".
           </p>
 
-          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">9. Contact Us</h2>
+          <h2 className="text-xl font-semibold text-emerald-900 mt-6 mb-3">9. Kontakt</h2>
           <p>
-            If you have any questions about this privacy policy or our privacy practices, please contact us at{' '}
-            <a href="mailto:office@kankot.com" className="text-emerald-500 hover:text-emerald-600">
-              office@kankot.com
+            W przypadku pytań dotyczących tej polityki prywatności lub naszych praktyk w zakresie prywatności, prosimy o kontakt pod adresem{' '}
+            <a href="mailto:biuro@podatkistankiewicz.pl" className="text-emerald-500 hover:text-emerald-600">
+              biuro@podatkistankiewicz.pl
             </a>
           </p>
 
-          <p className="text-sm text-emerald-600 mt-8">Last updated: December 11, 2024</p>
+          <p className="text-sm text-emerald-600 mt-8">Ostatnia aktualizacja: 11 grudnia 2024</p>
         </article>
       </div>
     </div>
