@@ -81,9 +81,9 @@ export default function EuVat() {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-2 sm:px-4">
       {/* Search Form */}
-      <div className="mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+      <div className="mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full max-w-full">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -169,16 +169,16 @@ export default function EuVat() {
       </div>
 
       {error && (
-        <div className="mb-4 flex items-start gap-3 p-3 rounded-xl border border-error-light/20 bg-error-light/10 backdrop-blur-sm text-error-dark">
+        <div className="mb-4 flex items-start gap-3 p-3 rounded-xl border border-error-light/20 bg-error-light/10 backdrop-blur-sm text-error-dark w-full max-w-full">
           <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
           <p className="text-sm">{error}</p>
         </div>
       )}
 
       {result && (
-        <div className="space-y-4">
+        <div className="space-y-4 w-full max-w-full">
           {/* Status */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
             <div className="flex flex-col items-center gap-2">
               <div className={cn(
                 "inline-flex items-center gap-2 px-4 py-2 rounded-full",
@@ -198,9 +198,9 @@ export default function EuVat() {
           </div>
 
           {/* Main Info Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
             {/* Company Info */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
               <div className="flex items-start gap-3">
                 <Building className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
                 <div className="min-w-0">
@@ -215,7 +215,7 @@ export default function EuVat() {
             </div>
 
             {/* VAT Number */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
               <div className="flex items-start gap-3">
                 <Globe className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
                 <div className="min-w-0">
@@ -226,7 +226,7 @@ export default function EuVat() {
             </div>
 
             {/* Verification Date */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
               <div className="flex items-start gap-3">
                 <Calendar className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
                 <div className="min-w-0">
@@ -247,7 +247,7 @@ export default function EuVat() {
 
           {/* Address */}
           {result.address && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
                 <div className="min-w-0">

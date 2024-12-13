@@ -59,7 +59,7 @@ export function Solutions() {
             Doświadczenie, Któremu Możesz Zaufać
           </h2>
           <p className="text-lg text-[#862B44] max-w-3xl mx-auto font-medium">
-            40 lat praktyki w Urzędzie Skarbowym i doradztwie podatkowym
+            40 lat praktyki w Urzędzie Skarbowym i sektorze prywatnym
           </p>
         </motion.div>
 
@@ -113,7 +113,7 @@ export function Solutions() {
           className="mt-12 text-center"
         >
           <p className="text-lg text-[#862B44] max-w-3xl mx-auto italic">
-            "Każda sprawa podatkowa ma swoje rozwiązanie. Dzięki doświadczeniu z obu stron - urzędu skarbowego i doradztwa prywatnego - potrafię znaleźć najlepsze wyjście nawet z najtrudniejszej sytuacji."
+            "Każda sprawa podatkowa ma swoje rozwiązanie. Dzięki ponad 40 letniemu doświadczeniu w branży znajdę wyjścia nawet z najtrudniejszej sytuacji."
           </p>
           <p className="mt-2 text-[#A13553] font-medium">
             - Jolanta Stankiewicz
