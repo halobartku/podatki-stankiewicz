@@ -1,21 +1,29 @@
 {
-  "name": "KANKOT Consulting",
-  "short_name": "KANKOT",
-  "description": "KANKOT Consulting - Your trusted partner for business and technology solutions",
+  "name": "Kancelaria Podatkowa Jolanta Stankiewicz",
+  "short_name": "Podatki Stankiewicz",
+  "description": "Kompleksowa obsługa podatkowa i księgowa dla firm oraz osób prywatnych w Elblągu",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#862B44",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "/"
+  "start_url": "/",
+  "orientation": "portrait",
+  "categories": ["business", "finance"],
+  "lang": "pl",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "scope": "/"
 }

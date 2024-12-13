@@ -1,4 +1,16 @@
+# www.robotstxt.org/
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*_buildManifest.js$
+Disallow: /*_middlewareManifest.js$
+Disallow: /*_ssgManifest.js$
+Disallow: /*.js.map$
 
-Sitemap: https://findprimarywater.com/sitemap.xml
+# Host
+Host: https://podatkistankiewicz.pl
+
+# Sitemaps
+Sitemap: https://podatkistankiewicz.pl/sitemap.xml
