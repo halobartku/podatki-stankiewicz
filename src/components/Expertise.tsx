@@ -90,7 +90,7 @@ export function Expertise() {
                 stiffness: 100,
                 damping: 15
               }}
-              className="w-4/5 scale-80 hover:scale-85 transition-transform duration-300"
+              className="mx-auto w-full max-w-[350px] transform hover:scale-105 transition-transform duration-300"
             >
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#862B44] to-[#A13553] rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
