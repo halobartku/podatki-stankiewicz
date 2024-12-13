@@ -5,6 +5,7 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "outputDirectory": "dist",
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/images/(.*)",
@@ -22,8 +23,8 @@
   ],
   "rewrites": [
     { 
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/api/vat/validate",
+      "destination": "/api/vat/validate"
     },
     { 
       "source": "/(.*)", 
@@ -31,7 +32,7 @@
     }
   ],
   "functions": {
-    "api/**/*.ts": {
+    "api/vat/validate/index.ts": {
       "memory": 1024,
       "maxDuration": 10
     }
