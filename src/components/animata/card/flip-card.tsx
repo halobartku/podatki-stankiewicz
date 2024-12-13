@@ -52,7 +52,7 @@ export function FlipCard({
               className: "h-full w-full rounded-2xl object-cover"
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#862B44]/90 via-[#A13553]/80 to-[#DAA520]/20 rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#862B44]/70 via-[#862B44]/50 to-[#DAA520]/30 rounded-2xl" />
           <div className="absolute bottom-4 left-4 text-xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
             {title}
           </div>
@@ -61,7 +61,7 @@ export function FlipCard({
         {/* Back */}
         <div
           className={cn(
-            "absolute h-full w-full rounded-2xl bg-gradient-to-br from-[#FFF5F7] via-[#F5E6D3]/20 to-[#FFF8FA] p-6",
+            "absolute h-full w-full rounded-2xl bg-gradient-to-br from-[#FFF5F7] via-[#FFF5F7] to-[#FFF8FA] p-6",
             "text-gray-800 [backface-visibility:hidden] shadow-lg",
             self[1],
           )}
