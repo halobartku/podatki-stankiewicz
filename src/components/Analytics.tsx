@@ -13,13 +13,20 @@ const Analytics = () => {
     <button
       onClick={() => setActiveTab(tab)}
       className={cn(
-        "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+        "relative px-6 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 overflow-hidden group",
         activeTab === tab
-          ? "bg-primary-500 text-white"
+          ? "text-white"
           : "text-primary-500/70 hover:text-primary-500 hover:bg-primary-50"
       )}
     >
-      {label}
+      {activeTab === tab && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 transition-all duration-300"></div>
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 border border-white/10 rounded-lg shadow-lg"></div>
+        </>
+      )}
+      <span className="relative z-10">{label}</span>
     </button>
   );
 
@@ -49,7 +56,7 @@ const Analytics = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center gap-2 mb-8 p-1 bg-white/80 rounded-lg border border-primary-100">
+          <div className="flex justify-center gap-4 mb-8 p-2 bg-white/80 rounded-lg border border-primary-100">
             <TabButton tab="polish" label="Polski NIP" />
             <TabButton tab="eu" label="VAT UE" />
           </div>

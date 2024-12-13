@@ -82,23 +82,19 @@ export default function PolishVat() {
           <motion.button
             type="submit"
             disabled={loading}
-            className={cn(
-              "w-full rounded-lg",
-              "bg-primary-500",
-              "px-8 py-2.5 text-sm font-medium text-white",
-              "transition-all",
-              "hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/10",
-              "focus:outline-none focus:ring-2 focus:ring-primary-500/50",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
-            )}
+            className="relative w-full rounded-lg px-8 py-2.5 text-sm font-medium text-white overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            {loading ? 'Weryfikacja...' : 'Zweryfikuj NIP'}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 transition-all duration-300"></div>
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 transition-opacity duration-300"></div>
+            <span className="relative z-10">{loading ? 'Weryfikacja...' : 'Zweryfikuj NIP'}</span>
+            <div className="absolute inset-0 border border-white/10 rounded-lg shadow-lg"></div>
           </motion.button>
         </form>
       </div>
 
+      {/* Rest of the component remains unchanged */}
       {error && (
         <div className="mb-4 flex items-start gap-3 p-3 rounded-xl border border-error-light/20 bg-error-light/10 backdrop-blur-sm text-error-dark">
           <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />

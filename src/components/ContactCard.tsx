@@ -50,12 +50,15 @@ export function ContactCard() {
                   <p className="text-primary-500/80 mb-3">{siteMetadata.company.address}</p>
                   <motion.button
                     onClick={handleNavigation}
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary-500 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/10 focus:outline-none focus:ring-2 focus:ring-primary-500/50 active:scale-95"
+                    className="relative inline-flex items-center gap-2 rounded-lg px-8 py-3 text-sm font-medium text-white overflow-hidden group"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Navigation className="w-4 h-4" />
-                    Prowadź do
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 transition-all duration-300"></div>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 transition-opacity duration-300"></div>
+                    <Navigation className="w-4 h-4 relative z-10" />
+                    <span className="relative z-10">Prowadź do</span>
+                    <div className="absolute inset-0 border border-white/10 rounded-lg shadow-lg"></div>
                   </motion.button>
                 </div>
               </div>

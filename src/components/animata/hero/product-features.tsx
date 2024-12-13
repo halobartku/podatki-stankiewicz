@@ -162,11 +162,14 @@ export default function ProductFeatures() {
           <div className="flex flex-col items-center gap-2">
             <motion.button
               onClick={handleGetStarted}
-              className="rounded-lg bg-primary-500 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/10 focus:outline-none focus:ring-2 focus:ring-primary-500/50 active:scale-95"
+              className="relative rounded-lg px-8 py-3 text-sm font-medium text-white overflow-hidden group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Dowiedz się więcej
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 transition-all duration-300"></div>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 transition-opacity duration-300"></div>
+              <span className="relative z-10">Dowiedz się więcej</span>
+              <div className="absolute inset-0 border border-white/10 rounded-lg shadow-lg"></div>
             </motion.button>
           </div>
         </motion.div>
