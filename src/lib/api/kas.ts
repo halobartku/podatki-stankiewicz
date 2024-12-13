@@ -17,19 +17,43 @@ export const verifyCompany = async (nip: string): Promise<PolishCompanyData> => 
     }
 
     const subject = data.result.subject;
-    console.log('API Response:', subject); // Debug log
+    console.log('Raw API Response:', JSON.stringify(data.result, null, 2));
     
-    // Helper function to format address
+    // Helper function to format address with support for different field structures
     const formatAddress = (address: any) => {
-      if (!address) return 'Adres niedostępny';
+      console.log('Raw address data:', JSON.stringify(address, null, 2));
+      
+      if (!address) {
+        console.log('Address is null/undefined');
+        return 'Adres niedostępny';
+      }
+      
+      // Check if address is a string (some APIs return full address as a string)
+      if (typeof address === 'string') {
+        return address;
+      }
       
       const parts = [];
-      if (address.street) parts.push(address.street);
-      if (address.number) parts.push(address.number);
-      if (address.postalCode) parts.push(address.postalCode);
-      if (address.city) parts.push(address.city);
       
-      console.log('Formatting address:', address, 'Result:', parts.join(' ')); // Debug log
+      // Support both camelCase and regular field names
+      const street = address.street || address.ulica || address.streetName;
+      const number = address.number || address.numer || address.streetNumber || address.numerBudynku;
+      const postal = address.postalCode || address.kodPocztowy;
+      const city = address.city || address.miasto || address.miejscowosc;
+      
+      console.log('Extracted fields:', { street, number, postal, city });
+      
+      if (street) parts.push(street);
+      if (number) parts.push(number);
+      if (postal) parts.push(postal);
+      if (city) parts.push(city);
+      
+      // Check for direct address field
+      if (parts.length === 0 && address.adres) {
+        return address.adres;
+      }
+      
+      console.log('Final address parts:', parts);
       return parts.length > 0 ? parts.join(' ') : 'Adres niedostępny';
     };
 
@@ -82,10 +106,10 @@ export const verifyCompany = async (nip: string): Promise<PolishCompanyData> => 
       result.statusVatResult.message = 'Podmiot nie jest zarejestrowany jako podatnik VAT';
     }
 
-    console.log('Processed result:', result); // Debug log
+    console.log('Final processed result:', JSON.stringify(result, null, 2));
     return result;
   } catch (error) {
-    console.error('API Error:', error); // Debug log
+    console.error('API Error:', error);
     if (error instanceof Error) {
       if (error.message === 'Nie znaleziono firmy') {
         throw error;
