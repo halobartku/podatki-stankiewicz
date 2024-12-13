@@ -35,18 +35,20 @@ export default function TextFlip() {
       <h1 className="bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text whitespace-nowrap text-[2rem] sm:text-4xl lg:text-5xl leading-tight">
         Stankiewicz
       </h1>
-      <div className="relative h-[4rem] sm:h-[5rem] lg:h-[6rem] w-full flex items-center justify-center">
+      <div className="flex items-center justify-center w-full overflow-hidden pt-0 pb-4" style={{ minHeight: '100px' }}>
         <AnimatePresence mode="wait">
-          <motion.span
+          <motion.div
             key={words[currentIndex]}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="absolute bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text animate-gradient-x text-[2rem] sm:text-4xl lg:text-5xl whitespace-nowrap leading-tight"
+            className="flex items-center justify-center w-full"
           >
-            {words[currentIndex]}
-          </motion.span>
+            <span className="bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text animate-gradient-x text-[2rem] sm:text-4xl lg:text-5xl whitespace-nowrap" style={{ lineHeight: '1.8' }}>
+              {words[currentIndex]}
+            </span>
+          </motion.div>
         </AnimatePresence>
       </div>
     </div>
