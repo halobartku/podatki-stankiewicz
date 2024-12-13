@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: VercelRequest,
+  res: VercelResponse
 ) {
-  console.log('API route called with:', {
+  console.log('Serverless function called with:', {
     method: req.method,
     query: req.query,
     headers: req.headers
