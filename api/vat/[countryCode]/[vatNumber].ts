@@ -5,25 +5,40 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  console.log('Serverless function called with:', {
+  // Set content type immediately
+  res.setHeader('Content-Type', 'application/json');
+
+  // Log request details
+  console.log('API Request:', {
+    url: req.url,
     method: req.method,
     query: req.query,
-    headers: req.headers
+    headers: req.headers,
+    path: req.url ? new URL(req.url, 'http://localhost').pathname : null
   });
 
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Content-Type', 'application/json');
 
   // Handle preflight request
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
+  }
+
+  // Validate request method
+  if (req.method !== 'GET') {
+    return res.status(405).json({
+      error: 'Method not allowed',
+      allowedMethods: ['GET', 'OPTIONS']
+    });
   }
 
   const { countryCode, vatNumber } = req.query;
+
+  // Log parsed parameters
+  console.log('Parsed parameters:', { countryCode, vatNumber });
 
   if (!countryCode || !vatNumber || Array.isArray(countryCode) || Array.isArray(vatNumber)) {
     console.error('Invalid parameters:', { countryCode, vatNumber });
@@ -57,6 +72,8 @@ export default async function handler(
     };
 
     console.log('Sending response:', responseData);
+    
+    // Ensure we're sending JSON response
     return res.status(200).json(responseData);
 
   } catch (error) {
@@ -66,6 +83,7 @@ export default async function handler(
       stack: error instanceof Error ? error.stack : null
     });
 
+    // Ensure error responses are also JSON
     if (axios.isAxiosError(error) && error.response) {
       return res.status(error.response.status || 500).json({
         error: error.response.data?.message || 'Failed to verify VAT number',

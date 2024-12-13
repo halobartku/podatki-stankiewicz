@@ -1,16 +1,27 @@
 import { ViesResponse } from './types';
 
+const getBaseUrl = () => {
+  if (process.env.NODE_ENV === 'production') {
+    // Use the deployment URL in production
+    return '';  // Empty string means use relative URLs which will work with Vercel's routing
+  }
+  // Use localhost in development
+  return 'http://localhost:3000';
+};
+
 export const verifyEuVat = async (countryCode: string, vatNumber: string): Promise<ViesResponse> => {
   try {
     const cleanVat = vatNumber.replace(/[^a-zA-Z0-9]/g, '');
-    const url = `/api/vat/${countryCode}/${cleanVat}`;
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/api/vat/${countryCode}/${cleanVat}`;
     
     console.log('Making VAT verification request to:', url);
     
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
     });
     
@@ -31,7 +42,9 @@ export const verifyEuVat = async (countryCode: string, vatNumber: string): Promi
           errorMessage = response.statusText || errorMessage;
         }
       } else {
-        console.error('Non-JSON error response:', await response.text());
+        const textResponse = await response.text();
+        console.error('Non-JSON error response:', textResponse);
+        throw new Error(`Server returned non-JSON response: ${textResponse.substring(0, 100)}...`);
       }
       
       throw new Error(errorMessage);
@@ -39,8 +52,10 @@ export const verifyEuVat = async (countryCode: string, vatNumber: string): Promi
 
     const contentType = response.headers.get('content-type');
     if (!contentType?.includes('application/json')) {
+      const textResponse = await response.text();
       console.error('Invalid content type:', contentType);
-      throw new Error('Invalid response format from server');
+      console.error('Response body:', textResponse);
+      throw new Error(`Invalid response format from server (${contentType}): ${textResponse.substring(0, 100)}...`);
     }
 
     const data = await response.json();
