@@ -7,27 +7,60 @@ export const verifyCompany = async (nip: string): Promise<PolishCompanyData> => 
     );
     
     if (!response.ok) {
-      throw new Error('Failed to verify company');
+      throw new Error('Nie udało się zweryfikować firmy');
     }
 
     const data = await response.json();
     
     if (!data.result.subject) {
-      throw new Error('Company not found');
+      throw new Error('Nie znaleziono firmy');
     }
 
     const subject = data.result.subject;
     
+    // Helper function to format address
+    const formatAddress = (address: any) => {
+      if (!address) return undefined;
+      const parts = [
+        address.street,
+        address.number,
+        address.postalCode,
+        address.city
+      ].filter(Boolean);
+      return parts.join(' ');
+    };
+
+    // Helper function to format person name
+    const formatPerson = (person: any) => {
+      if (!person) return undefined;
+      return {
+        firstName: person.firstName || person.companyName || '',
+        lastName: person.lastName || ''
+      };
+    };
+
     return {
       name: subject.name,
       nip: subject.nip,
       statusVat: subject.statusVat,
       regon: subject.regon,
-      workingAddress: subject.workingAddress 
-        ? `${subject.workingAddress.street || ''} ${subject.workingAddress.number || ''}, ${subject.workingAddress.city || ''}`
-        : 'Address not available'
+      krs: subject.krs,
+      workingAddress: formatAddress(subject.workingAddress) || 'Adres niedostępny',
+      residenceAddress: formatAddress(subject.residenceAddress),
+      registrationLegalDate: subject.registrationLegalDate,
+      accountNumbers: subject.accountNumbers,
+      representatives: subject.representatives?.map(formatPerson),
+      authorizedClerks: subject.authorizedClerks?.map(formatPerson),
+      partners: subject.partners?.map(formatPerson)
     };
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : 'Failed to verify company');
+    if (error instanceof Error) {
+      if (error.message === 'Nie znaleziono firmy') {
+        throw error;
+      }
+      console.error('API Error:', error);
+      throw new Error('Wystąpił błąd podczas weryfikacji');
+    }
+    throw new Error('Wystąpił nieoczekiwany błąd');
   }
 };

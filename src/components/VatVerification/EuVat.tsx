@@ -1,35 +1,38 @@
 import { useState } from 'react';
 import { verifyEuVat } from '../../lib/api/vies';
 import type { EuCountry, ViesResponse } from '../../lib/api/types';
+import { Button } from '../ui/button';
+import { cn } from '../../lib/utils';
+import { motion } from 'framer-motion';
 
 const EU_COUNTRIES: EuCountry[] = [
   { code: 'AT', name: 'Austria' },
-  { code: 'BE', name: 'Belgium' },
-  { code: 'BG', name: 'Bulgaria' },
-  { code: 'HR', name: 'Croatia' },
-  { code: 'CY', name: 'Cyprus' },
-  { code: 'CZ', name: 'Czech Republic' },
-  { code: 'DK', name: 'Denmark' },
+  { code: 'BE', name: 'Belgia' },
+  { code: 'BG', name: 'Bułgaria' },
+  { code: 'HR', name: 'Chorwacja' },
+  { code: 'CY', name: 'Cypr' },
+  { code: 'CZ', name: 'Czechy' },
+  { code: 'DK', name: 'Dania' },
   { code: 'EE', name: 'Estonia' },
-  { code: 'FI', name: 'Finland' },
-  { code: 'FR', name: 'France' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'GR', name: 'Greece' },
-  { code: 'HU', name: 'Hungary' },
-  { code: 'IE', name: 'Ireland' },
-  { code: 'IT', name: 'Italy' },
-  { code: 'LV', name: 'Latvia' },
-  { code: 'LT', name: 'Lithuania' },
-  { code: 'LU', name: 'Luxembourg' },
+  { code: 'FI', name: 'Finlandia' },
+  { code: 'FR', name: 'Francja' },
+  { code: 'DE', name: 'Niemcy' },
+  { code: 'GR', name: 'Grecja' },
+  { code: 'HU', name: 'Węgry' },
+  { code: 'IE', name: 'Irlandia' },
+  { code: 'IT', name: 'Włochy' },
+  { code: 'LV', name: 'Łotwa' },
+  { code: 'LT', name: 'Litwa' },
+  { code: 'LU', name: 'Luksemburg' },
   { code: 'MT', name: 'Malta' },
-  { code: 'NL', name: 'Netherlands' },
-  { code: 'PL', name: 'Poland' },
-  { code: 'PT', name: 'Portugal' },
-  { code: 'RO', name: 'Romania' },
-  { code: 'SK', name: 'Slovakia' },
-  { code: 'SI', name: 'Slovenia' },
-  { code: 'ES', name: 'Spain' },
-  { code: 'SE', name: 'Sweden' }
+  { code: 'NL', name: 'Holandia' },
+  { code: 'PL', name: 'Polska' },
+  { code: 'PT', name: 'Portugalia' },
+  { code: 'RO', name: 'Rumunia' },
+  { code: 'SK', name: 'Słowacja' },
+  { code: 'SI', name: 'Słowenia' },
+  { code: 'ES', name: 'Hiszpania' },
+  { code: 'SE', name: 'Szwecja' }
 ];
 
 export default function EuVat() {
@@ -42,21 +45,18 @@ export default function EuVat() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Clear previous results
     setError(null);
     setResult(null);
 
-    // Validate inputs
     if (!country) {
-      setError('Please select a country');
+      setError('Proszę wybrać kraj');
       return;
     }
     if (!vatNumber) {
-      setError('Please enter a VAT number');
+      setError('Proszę wprowadzić numer VAT');
       return;
     }
 
-    // Show loading state
     setLoading(true);
 
     try {
@@ -65,18 +65,18 @@ export default function EuVat() {
       setError(null);
     } catch (err) {
       setResult(null);
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      setError(err instanceof Error ? err.message : 'Wystąpił nieoczekiwany błąd');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6">
+    <div className="w-full max-w-md mx-auto p-6 space-y-6 bg-gray-50/50 backdrop-blur-sm rounded-lg border border-white/10">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-            Country
+          <label htmlFor="country" className="block text-sm font-medium text-gray-800">
+            Kraj
           </label>
           <select
             id="country"
@@ -86,10 +86,16 @@ export default function EuVat() {
               setResult(null);
               setError(null);
             }}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className={cn(
+              "mt-1 block w-full rounded-md border border-white/10 bg-white/5",
+              "px-3 py-2 text-sm backdrop-blur-sm",
+              "focus:border-white focus:ring-2 focus:ring-white/20",
+              "disabled:opacity-50 disabled:cursor-not-allowed",
+              "transition-colors duration-200"
+            )}
             disabled={loading}
           >
-            <option value="">Select a country</option>
+            <option value="">Wybierz kraj</option>
             {EU_COUNTRIES.map((country) => (
               <option key={country.code} value={country.code}>
                 {country.name}
@@ -98,8 +104,8 @@ export default function EuVat() {
           </select>
         </div>
         <div>
-          <label htmlFor="vatNumber" className="block text-sm font-medium text-gray-700">
-            VAT Number
+          <label htmlFor="vatNumber" className="block text-sm font-medium text-gray-800">
+            Numer VAT
           </label>
           <input
             type="text"
@@ -110,44 +116,69 @@ export default function EuVat() {
               setResult(null);
               setError(null);
             }}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="Enter VAT number"
+            className={cn(
+              "mt-1 block w-full rounded-md border border-white/10 bg-white/5",
+              "px-3 py-2 text-sm backdrop-blur-sm",
+              "focus:border-white focus:ring-2 focus:ring-white/20",
+              "disabled:opacity-50 disabled:cursor-not-allowed",
+              "transition-colors duration-200"
+            )}
+            placeholder="Wprowadź numer VAT"
             disabled={loading}
           />
         </div>
-        <button
+        <motion.button
           type="submit"
           disabled={loading}
-          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
-            ${loading 
-              ? 'bg-indigo-400 cursor-not-allowed' 
-              : 'bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-            }`}
+          className={cn(
+            "w-full rounded-lg",
+            "bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40",
+            "px-8 py-3 text-sm font-medium text-white",
+            "transition-all",
+            "hover:shadow-lg hover:shadow-[#DAA520]/20",
+            "focus:outline-none focus:ring-2 focus:ring-[#862B44]/50",
+            "disabled:opacity-50 disabled:cursor-not-allowed",
+          )}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          {loading ? 'Verifying...' : 'Verify VAT Number'}
-        </button>
+          {loading ? 'Weryfikacja...' : 'Zweryfikuj numer VAT'}
+        </motion.button>
       </form>
 
       {error && (
-        <div className="mt-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-md">
+        <div className={cn(
+          "p-4 rounded-lg",
+          "border border-error-light/20",
+          "bg-error-light/10 backdrop-blur-sm",
+          "text-error-dark text-sm"
+        )}>
           {error}
         </div>
       )}
 
       {result && (
-        <div className={`mt-4 p-4 ${result.valid ? 'bg-green-50 border-green-200' : 'bg-yellow-50 border-yellow-200'} border rounded-lg`}>
-          <div className={`text-lg font-medium mb-2 ${result.valid ? 'text-green-700' : 'text-yellow-700'}`}>
-            {result.valid ? 'Valid VAT Number' : 'Invalid VAT Number'}
+        <div className={cn(
+          "p-4 rounded-lg border backdrop-blur-sm",
+          result.valid 
+            ? "border-success-light/20 bg-success-light/10" 
+            : "border-warning-light/20 bg-warning-light/10"
+        )}>
+          <div className={cn(
+            "text-lg font-medium mb-3",
+            result.valid ? "text-success-dark" : "text-warning-dark"
+          )}>
+            {result.valid ? 'Prawidłowy numer VAT' : 'Nieprawidłowy numer VAT'}
           </div>
-          <dl className="space-y-2 text-sm text-gray-600">
-            <div>
-              <dt className="inline font-medium">VAT Number: </dt>
-              <dd className="inline">{result.countryCode} {result.vatNumber}</dd>
+          <dl className="space-y-2 text-sm text-gray-700">
+            <div className="flex">
+              <dt className="w-32 font-medium">Numer VAT:</dt>
+              <dd>{result.countryCode} {result.vatNumber}</dd>
             </div>
-            <div>
-              <dt className="inline font-medium">Verification Date: </dt>
-              <dd className="inline">
-                {new Date(result.requestDate).toLocaleDateString(undefined, {
+            <div className="flex">
+              <dt className="w-32 font-medium">Zweryfikowano:</dt>
+              <dd>
+                {new Date(result.requestDate).toLocaleDateString('pl-PL', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -157,15 +188,15 @@ export default function EuVat() {
               </dd>
             </div>
             {result.name && (
-              <div>
-                <dt className="inline font-medium">Company Name: </dt>
-                <dd className="inline">{result.name}</dd>
+              <div className="flex">
+                <dt className="w-32 font-medium">Firma:</dt>
+                <dd>{result.name}</dd>
               </div>
             )}
             {result.address && (
-              <div>
-                <dt className="inline font-medium">Address: </dt>
-                <dd className="inline">{result.address}</dd>
+              <div className="flex">
+                <dt className="w-32 font-medium">Adres:</dt>
+                <dd>{result.address}</dd>
               </div>
             )}
           </dl>
