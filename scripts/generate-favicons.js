@@ -16,7 +16,7 @@ const sizes = {
 };
 
 async function generateFavicons() {
-  const inputPath = path.join(__dirname, '../src/assets/Favicon Kankot.png');
+  const inputPath = path.join(__dirname, '../src/assets/favicon.png');
   const publicDir = path.join(__dirname, '../public');
 
   // Ensure public directory exists
