@@ -70,19 +70,23 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-primary-500 shadow-xl overflow-hidden"
+              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-white shadow-xl overflow-hidden"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-4 border-b border-white/10">
-                  <div className="flex items-center">
+                <div className="flex items-center p-4 border-b border-gray-100">
+                  <div className="flex items-center gap-3">
                     <img
                       {...{
                         src: logo,
-                        alt: "KANKOT Logo",
+                        alt: "Logo",
                         className: "h-12 object-contain"
                       } as DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>}
                     />
+                    <div className="text-sm font-medium text-primary-600 leading-tight">
+                      Kancelaria Podatkowa<br />
+                      Stankiewicz
+                    </div>
                   </div>
                 </div>
                 <nav className="flex-1 overflow-y-auto py-4">
@@ -95,8 +99,8 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
                         className={cn(
                           'w-full px-6 py-4 flex items-center gap-4 transition-colors',
                           currentSection === section.id
-                            ? 'text-secondary-500 bg-cream/90'
-                            : 'text-cream hover:bg-primary-600'
+                            ? 'text-white bg-primary-500'
+                            : 'text-gray-600 hover:bg-gray-50'
                         )}
                       >
                         <Icon size={24} />
