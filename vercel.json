@@ -17,20 +17,25 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/vat/validate",
+      "destination": "/api/vat-validate"
+    },
     { 
       "source": "/(.*)", 
       "destination": "/index.html" 
     }
   ],
-  "ignoreCommand": "find . -name '*\\[*\\]*' -type f",
-  "builds": [
+  "functions": {
+    "functions/vat-validate/index.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "routes": [
     {
-      "src": "package.json",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/vat/validate/index.ts",
-      "use": "@vercel/node"
+      "src": "/api/vat-validate",
+      "dest": "/functions/vat-validate"
     }
   ]
 }
