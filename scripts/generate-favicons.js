@@ -25,7 +25,10 @@ async function generateFavicons() {
   // Process each size
   for (const [key, config] of Object.entries(sizes)) {
     await sharp(inputPath)
-      .resize(config.size, config.size)
+      .resize(config.size, config.size, {
+        fit: 'contain',
+        background: { r: 255, g: 255, b: 255, alpha: 0 }
+      })
       .png()
       .toFile(path.join(publicDir, config.name));
     

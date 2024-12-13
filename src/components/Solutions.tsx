@@ -126,7 +126,7 @@ export function Solutions() {
           className="text-center mb-12"
         >
           <motion.h2 
-            className="text-4xl font-bold bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text mb-4 cursor-pointer"
+            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text mb-4 cursor-pointer px-4"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 10 }}
@@ -134,7 +134,7 @@ export function Solutions() {
             Doświadczenie, Któremu Możesz Zaufać
           </motion.h2>
           <motion.p 
-            className="text-lg text-[#862B44] max-w-3xl mx-auto font-medium"
+            className="text-base sm:text-lg text-[#862B44] max-w-3xl mx-auto font-medium px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -144,12 +144,12 @@ export function Solutions() {
         </motion.div>
 
         {/* Expertise Highlights Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 mb-12 sm:mb-16 px-2 sm:px-4">
           {expertiseHighlights.map((highlight, index) => (
             <InteractiveCard
               key={highlight.title}
               delay={index * 0.1}
-              className="relative p-8 rounded-2xl backdrop-blur-sm border border-[#862B44]/10 group cursor-pointer"
+              className="relative p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-[#862B44]/10 group cursor-pointer"
             >
               <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${highlight.color} transition-opacity duration-300`} />
               {highlight.subtitle && (
@@ -168,12 +168,12 @@ export function Solutions() {
         </div>
 
         {/* Specializations Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-2 sm:px-4">
           {specializations.map((spec, index) => (
             <InteractiveCard
               key={spec.title}
               delay={index * 0.1}
-              className="p-6 rounded-xl bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-sm border border-[#862B44]/10 group cursor-pointer hover:bg-gradient-to-br hover:from-white/90 hover:to-white/70"
+              className="p-4 sm:p-6 rounded-xl bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-sm border border-[#862B44]/10 group cursor-pointer hover:bg-gradient-to-br hover:from-white/90 hover:to-white/70"
             >
               <h3 className="text-lg font-bold text-[#862B44] mb-3">
                 {spec.title}

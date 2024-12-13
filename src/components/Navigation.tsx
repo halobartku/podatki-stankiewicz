@@ -32,12 +32,23 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
     setIsOpen(false)
   }
 
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
   return (
     <>
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-6 right-6 z-50 p-3 rounded-xl bg-[#862B44] text-white shadow-lg hover:bg-[#A13553] transition-colors"
+        className="lg:hidden fixed top-4 right-4 z-[60] p-3 rounded-xl bg-[#862B44] text-white shadow-lg hover:bg-[#A13553] transition-colors"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -45,13 +56,13 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
 
       {/* Mobile navigation */}
       <AnimatePresence>
-        {isOpen ? (
+        {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm lg:hidden"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -59,29 +70,22 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-gradient-to-r from-[#862B44] to-[#A13553] shadow-xl"
+              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-gradient-to-r from-[#862B44] to-[#A13553] shadow-xl overflow-hidden"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                <div className="flex items-center justify-between p-4 border-b border-white/10">
                   <div className="flex items-center">
                     <img
                       {...{
                         src: logo,
                         alt: "KANKOT Logo",
-                        className: "w-40 sm:w-32 object-contain"
+                        className: "h-12 object-contain"
                       } as DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>}
                     />
                   </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                    aria-label="Close menu"
-                  >
-                    <X size={20} className="text-white" />
-                  </button>
                 </div>
-                <nav className="flex-1 overflow-y-auto py-8">
+                <nav className="flex-1 overflow-y-auto py-4">
                   {sections.map((section) => {
                     const Icon = section.icon
                     return (
@@ -89,14 +93,14 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
                         key={section.id}
                         onClick={() => handleNavigate(section.id)}
                         className={cn(
-                          'w-full px-8 py-6 flex items-center gap-4 transition-colors',
+                          'w-full px-6 py-4 flex items-center gap-4 transition-colors',
                           currentSection === section.id
                             ? 'text-white bg-white/10'
                             : 'text-white/90 hover:bg-white/5'
                         )}
                       >
                         <Icon size={24} />
-                        <span className="font-medium text-lg">{section.label}</span>
+                        <span className="font-medium text-base">{section.label}</span>
                       </button>
                     )
                   })}
@@ -104,7 +108,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               </div>
             </motion.div>
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
 
       {/* Desktop navigation */}
