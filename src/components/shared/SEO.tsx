@@ -28,13 +28,22 @@ export function SEO({
       <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
       <meta name="language" content={siteMetadata.language} />
 
+      {/* Mobile optimization */}
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      <meta name="theme-color" content="#862B44" />
+      <meta name="format-detection" content="telephone=yes" />
+
+      {/* Security */}
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={siteMetadata.openGraph.type} />
       <meta property="og:site_name" content={siteMetadata.openGraph.siteName} />
       <meta property="og:locale" content={siteMetadata.openGraph.locale} />
-      <meta property="og:url" content={siteMetadata.openGraph.url} />
-      <meta property="og:title" content={siteMetadata.openGraph.title} />
-      <meta property="og:description" content={siteMetadata.openGraph.description} />
+      <meta property="og:url" content={canonical} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
       <meta property="og:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
       <meta property="og:image:width" content={String(siteMetadata.openGraph.images[0].width)} />
       <meta property="og:image:height" content={String(siteMetadata.openGraph.images[0].height)} />
@@ -48,38 +57,107 @@ export function SEO({
       <meta name="twitter:card" content={siteMetadata.twitter.card} />
       <meta name="twitter:site" content={siteMetadata.twitter.site} />
       <meta name="twitter:creator" content={siteMetadata.twitter.creator} />
-      <meta name="twitter:title" content={siteMetadata.openGraph.title} />
-      <meta name="twitter:description" content={siteMetadata.openGraph.description} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
       <meta name="twitter:image:alt" content={siteMetadata.openGraph.images[0].alt} />
 
-      {/* Additional metadata */}
-      <meta name="geo.region" content="PL" />
+      {/* Local business metadata */}
+      <meta name="geo.region" content="PL-WN" />
       <meta name="geo.placename" content="Elbląg" />
+      <meta name="geo.position" content="54.1559;19.4044" />
+      <meta name="ICBM" content="54.1559, 19.4044" />
       <meta name="author" content={siteMetadata.company.name} />
-      
+      <meta name="copyright" content={`© ${new Date().getFullYear()} ${siteMetadata.company.name}`} />
+
       {/* JSON-LD structured data */}
       <script type="application/ld+json">
         {JSON.stringify({
           '@context': 'https://schema.org',
-          '@type': 'Organization',
+          '@type': 'LocalBusiness',
+          '@id': `${siteMetadata.siteUrl}/#organization`,
           name: siteMetadata.company.name,
           description: siteMetadata.description,
           url: siteMetadata.siteUrl,
-          logo: `${siteMetadata.siteUrl}/logo.png`,
-          image: `${siteMetadata.siteUrl}${ogImageUrl}`,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${siteMetadata.siteUrl}/logo.png`,
+            width: '512',
+            height: '512'
+          },
+          image: {
+            '@type': 'ImageObject',
+            url: `${siteMetadata.siteUrl}${ogImageUrl}`,
+            width: String(siteMetadata.openGraph.images[0].width),
+            height: String(siteMetadata.openGraph.images[0].height)
+          },
           address: {
             '@type': 'PostalAddress',
-            streetAddress: 'Aleja Grunwaldzka 2',
+            streetAddress: siteMetadata.company.address,
             addressLocality: 'Elbląg',
             postalCode: '82-300',
+            addressRegion: 'warmińsko-mazurskie',
             addressCountry: 'PL'
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: '54.1559',
+            longitude: '19.4044'
           },
           contactPoint: {
             '@type': 'ContactPoint',
-            email: siteMetadata.company.email,
-            contactType: 'customer service'
-          }
+            telephone: '',
+            email: '',
+            contactType: 'customer service',
+            areaServed: 'PL',
+            availableLanguage: ['Polish']
+          },
+          sameAs: [
+            // Add social media profiles when available
+          ],
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+              opens: '08:00',
+              closes: '16:00'
+            }
+          ],
+          priceRange: '$$',
+          vatID: siteMetadata.company.registration.nip,
+          taxID: siteMetadata.company.registration.regon,
+          foundingDate: '2020',
+          founder: {
+            '@type': 'Person',
+            name: siteMetadata.company.owner
+          },
+          areaServed: {
+            '@type': 'GeoCircle',
+            geoMidpoint: {
+              '@type': 'GeoCoordinates',
+              latitude: '54.1559',
+              longitude: '19.4044'
+            },
+            geoRadius: '50000'
+          },
+          makesOffer: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Usługi księgowe',
+                description: 'Kompleksowa obsługa księgowa firm i osób prywatnych'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Konsultacje podatkowe',
+                description: 'Profesjonalne konsultacje w zakresie podatków'
+              }
+            }
+          ]
         })}
       </script>
     </Helmet>
