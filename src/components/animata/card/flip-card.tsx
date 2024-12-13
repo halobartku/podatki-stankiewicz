@@ -52,7 +52,7 @@ export function FlipCard({
               className: "h-full w-full rounded-2xl object-cover"
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#862B44]/70 via-[#862B44]/50 to-[#DAA520]/30 rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/70 via-primary-500/50 to-primary-400/30 rounded-2xl" />
           <div className="absolute bottom-4 left-4 text-xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
             {title}
           </div>
@@ -61,7 +61,7 @@ export function FlipCard({
         {/* Back */}
         <div
           className={cn(
-            "absolute h-full w-full rounded-2xl bg-gradient-to-br from-[#FFF5F7] via-[#FFF5F7] to-[#FFF8FA] p-6",
+            "absolute h-full w-full rounded-2xl bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6",
             "text-gray-800 [backface-visibility:hidden] shadow-lg",
             self[1],
           )}
@@ -69,16 +69,16 @@ export function FlipCard({
           <div className="flex flex-col h-full">
             <div className="flex items-center gap-3 mb-4">
               {Icon && (
-                <div className="p-2 rounded-xl bg-gradient-to-br from-[#862B44]/10 to-[#DAA520]/10">
-                  <Icon className="w-6 h-6 text-[#862B44]" />
+                <div className="p-2 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100">
+                  <Icon className="w-6 h-6 text-primary-500" />
                 </div>
               )}
-              <h3 className="text-xl font-bold text-[#862B44]">
+              <h3 className="text-xl font-bold text-primary-500">
                 {subtitle || title}
               </h3>
             </div>
             <div className="grow">
-              <p className="text-base text-[#862B44] font-medium leading-relaxed">
+              <p className="text-base text-primary-500/80 font-medium leading-relaxed">
                 {description}
               </p>
             </div>

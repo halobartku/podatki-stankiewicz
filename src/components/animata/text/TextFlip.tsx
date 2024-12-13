@@ -29,10 +29,10 @@ export default function TextFlip() {
 
   return (
     <div className="inline-flex flex-col items-center text-center gap-0 text-4xl font-bold lg:text-5xl">
-      <h1 className="bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text whitespace-nowrap text-[2rem] sm:text-4xl lg:text-5xl leading-tight">
+      <h1 className="text-primary-500 whitespace-nowrap text-[2rem] sm:text-4xl lg:text-5xl leading-tight font-bold">
         Kancelaria Podatkowa
       </h1>
-      <h1 className="bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text whitespace-nowrap text-[2rem] sm:text-4xl lg:text-5xl leading-tight">
+      <h1 className="text-primary-500 whitespace-nowrap text-[2rem] sm:text-4xl lg:text-5xl leading-tight font-bold">
         Stankiewicz
       </h1>
       <div className="flex items-center justify-center w-full overflow-hidden pt-0 pb-4" style={{ minHeight: '100px' }}>
@@ -45,7 +45,7 @@ export default function TextFlip() {
             transition={{ duration: 0.5 }}
             className="flex items-center justify-center w-full"
           >
-            <span className="bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text animate-gradient-x text-[2rem] sm:text-4xl lg:text-5xl whitespace-nowrap" style={{ lineHeight: '1.8' }}>
+            <span className="bg-gradient-to-r from-primary-400 to-primary-600 text-transparent bg-clip-text animate-gradient-x text-[2rem] sm:text-4xl lg:text-5xl whitespace-nowrap" style={{ lineHeight: '1.8' }}>
               {words[currentIndex]}
             </span>
           </motion.div>

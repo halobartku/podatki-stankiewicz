@@ -17,3 +17,9 @@ export interface CaseStudy {
   description: string
   flag: string
 }
+
+export interface Service {
+  title: string
+  description: string
+  icon: LucideIcon
+}

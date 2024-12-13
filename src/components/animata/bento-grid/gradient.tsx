@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { Service } from "@/components/Services";
+import { cn } from "../../../lib/utils";
+import { Service } from "../../../types";
 import { motion } from "framer-motion";
 
 interface ServiceGridProps {
@@ -18,20 +18,20 @@ export default function ServiceGrid({ services }: ServiceGridProps) {
           className={cn(
             "group relative overflow-hidden rounded-3xl",
             "bg-white shadow-sm transition-all duration-300",
-            "hover:shadow-lg hover:bg-gradient-to-br from-emerald-50/50 to-blue-50/50"
+            "hover:shadow-lg hover:bg-gradient-to-br from-gray-50 to-primary-50/30"
           )}
         >
           <div className="p-6">
             <div className="flex items-center gap-4 mb-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100/80">
-                <service.icon className="h-6 w-6 text-emerald-600" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50">
+                <service.icon className="h-6 w-6 text-primary-500" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-primary-500">
                 {service.title}
               </h3>
             </div>
             
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-primary-500/80">
               {service.description}
             </p>
           </div>

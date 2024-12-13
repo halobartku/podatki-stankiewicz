@@ -33,17 +33,17 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
           className: "absolute inset-0 h-full w-full object-cover"
         } as DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>}
       />
-      <div className="relative z-10 flex h-full w-full flex-col gap-2 bg-gradient-to-t from-[#862B44]/90 via-[#A13553]/80 to-[#DAA520]/10 p-3">
-        <small className="inline w-fit rounded-xl bg-gradient-to-r from-[#862B44]/90 to-[#DAA520]/30 px-2 py-1 text-xs font-medium leading-none text-white">
+      <div className="relative z-10 flex h-full w-full flex-col gap-3 bg-gradient-to-t from-primary-600/85 via-primary-500/75 to-transparent p-4">
+        <small className="inline w-fit rounded-full bg-primary-500/40 backdrop-blur-sm px-3 py-1.5 text-sm font-medium leading-none text-white border border-white/10">
           {category}
         </small>
 
         <div className="flex-1" />
-        <div className="space-y-2 rounded-xl bg-gradient-to-br from-[#862B44]/90 via-[#A13553]/80 to-[#DAA520]/20 p-3 backdrop-blur-sm">
-          <h3 className="text-base font-bold leading-none text-white">
+        <div className="space-y-3 rounded-xl bg-primary-500/80 p-4 backdrop-blur-sm shadow-lg border border-white/10">
+          <h3 className="text-base font-bold leading-tight text-white">
             {title}
           </h3>
-          <p className="text-xs text-white/90">
+          <p className="text-sm leading-relaxed text-white/95">
             {description}
           </p>
         </div>
@@ -52,7 +52,8 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
   );
 
   const containerClassName = cn(
-    "relative flex h-72 w-56 flex-col overflow-hidden rounded-2xl shadow-none transition-shadow duration-300 ease-in-out hover:shadow-xl hover:shadow-[#DAA520]/20",
+    "relative flex h-80 w-64 flex-col overflow-hidden rounded-2xl shadow-xl transition-all duration-500 ease-out",
+    "hover:shadow-2xl hover:shadow-primary-500/20",
     className,
   );
 
@@ -82,7 +83,7 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
 }
 
 export default function ProductFeatures() {
-  const cardWidth = 56 * 4; // w-56 x 4
+  const cardWidth = 64 * 4; // w-64 x 4 (adjusted for new card width)
   const angle = 6;
   const yOffset = 30;
 
@@ -95,20 +96,16 @@ export default function ProductFeatures() {
 
   return (
     <section className="relative flex w-full h-full flex-col items-center gap-2 pt-0 pb-0 overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF5F7] via-[#F5E6D3]/20 to-[#862B44]/10" />
+      {/* Clean, professional background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100" />
       
-      {/* Additional gradient layers */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,_rgba(134,43,68,0.15)_0%,_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,_rgba(218,165,32,0.08)_0%,_transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_rgba(134,43,68,0.15)_0%,_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,_rgba(218,165,32,0.08)_0%,_transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(134,43,68,0.05)_0%,_transparent_70%)]" />
+      {/* Subtle gradient overlays */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,_rgba(0,0,128,0.03)_0%,_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_rgba(0,0,128,0.03)_0%,_transparent_50%)]" />
       
-      {/* Animated gradient blobs */}
-      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#862B44] rounded-full mix-blend-multiply filter blur-3xl opacity-[0.12] animate-blob"></div>
-      <div className="absolute top-1/3 -right-48 w-96 h-96 bg-[#DAA520] rounded-full mix-blend-multiply filter blur-3xl opacity-[0.08] animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-32 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-[#862B44] rounded-full mix-blend-multiply filter blur-3xl opacity-[0.12] animate-blob animation-delay-4000"></div>
+      {/* Very subtle animated blobs */}
+      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.15] animate-blob"></div>
+      <div className="absolute -bottom-32 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.15] animate-blob animation-delay-4000"></div>
       
       {/* Content */}
       <div className="relative w-full">
@@ -140,7 +137,7 @@ export default function ProductFeatures() {
               duration: 0.5,
             },
           }}
-          className="flex max-w-2xl flex-col items-center gap-4 px-4 mt-16 mx-auto text-white"
+          className="flex max-w-2xl flex-col items-center gap-4 px-4 mt-16 mx-auto text-primary-500"
         >
           <div className="sm:mt-0 mt-12">
             <TextFlip />
@@ -165,7 +162,7 @@ export default function ProductFeatures() {
           <div className="flex flex-col items-center gap-2">
             <motion.button
               onClick={handleGetStarted}
-              className="rounded-lg bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#DAA520]/20 focus:outline-none focus:ring-2 focus:ring-[#862B44]/50 active:scale-95"
+              className="rounded-lg bg-primary-500 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/10 focus:outline-none focus:ring-2 focus:ring-primary-500/50 active:scale-95"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

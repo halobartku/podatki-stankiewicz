@@ -18,7 +18,7 @@ export function ContactCard() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#FFF5F7] via-[#F5E6D3]/30 to-[#862B44]/10 overflow-hidden py-12">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-primary-50/10 overflow-hidden py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -26,10 +26,10 @@ export function ContactCard() {
           transition={{ duration: 0.5 }}
           className="text-center mb-8"
         >
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text mb-3">
+          <h2 className="text-4xl font-bold text-primary-500 mb-3">
             Kontakt
           </h2>
-          <p className="text-lg text-[#862B44]/90 max-w-3xl mx-auto font-medium">
+          <p className="text-lg text-primary-500/80 max-w-3xl mx-auto font-medium">
             Zapraszamy do kontaktu i odwiedzenia naszego biura
           </p>
         </motion.div>
@@ -40,17 +40,17 @@ export function ContactCard() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-[#862B44]/10"
+            className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-primary-100"
           >
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <MapPin className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Adres do doręczeń</h3>
-                  <p className="text-[#862B44]/80 mb-3">{siteMetadata.company.address}</p>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Adres do doręczeń</h3>
+                  <p className="text-primary-500/80 mb-3">{siteMetadata.company.address}</p>
                   <motion.button
                     onClick={handleNavigation}
-                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#DAA520]/20 focus:outline-none focus:ring-2 focus:ring-[#862B44]/50 active:scale-95"
+                    className="inline-flex items-center gap-2 rounded-lg bg-primary-500 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/10 focus:outline-none focus:ring-2 focus:ring-primary-500/50 active:scale-95"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -61,26 +61,26 @@ export function ContactCard() {
               </div>
 
               <div className="flex items-start gap-4">
-                <Phone className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <Phone className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Telefon</h3>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Telefon</h3>
                   <a 
                     href="tel:786131260"
-                    className="text-[#862B44]/80 hover:text-[#862B44] transition-colors inline-flex items-center gap-2"
+                    className="text-primary-500/80 hover:text-primary-500 transition-colors inline-flex items-center gap-2"
                   >
                     786 131 260
-                    <span className="text-sm text-[#A13553]">(Zadzwoń teraz)</span>
+                    <span className="text-sm text-primary-400">(Zadzwoń teraz)</span>
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <Mail className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <Mail className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Email</h3>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Email</h3>
                   <a 
                     href="mailto:biuro@podatkistankiewicz.pl"
-                    className="text-[#862B44]/80 hover:text-[#862B44] transition-colors"
+                    className="text-primary-500/80 hover:text-primary-500 transition-colors"
                   >
                     biuro@podatkistankiewicz.pl
                   </a>
@@ -88,14 +88,14 @@ export function ContactCard() {
               </div>
 
               <div className="flex items-start gap-4">
-                <Clock className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <Clock className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-3">Godziny otwarcia</h3>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-3">Godziny otwarcia</h3>
                   <div className="grid grid-cols-2 gap-y-2">
                     {businessHours.map((schedule) => (
                       <div key={schedule.day} className="contents">
-                        <span className="text-[#862B44]/80 font-medium text-sm">{schedule.day}</span>
-                        <span className="text-[#862B44]/80 text-sm text-right pl-8">{schedule.hours}</span>
+                        <span className="text-primary-500/80 font-medium text-sm">{schedule.day}</span>
+                        <span className="text-primary-500/80 text-sm text-right pl-8">{schedule.hours}</span>
                       </div>
                     ))}
                   </div>
@@ -109,51 +109,51 @@ export function ContactCard() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-[#862B44]/10"
+            className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-primary-100"
           >
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <Building className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <Building className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Forma prawna</h3>
-                  <p className="text-[#862B44]/80">{siteMetadata.company.type}</p>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Forma prawna</h3>
+                  <p className="text-primary-500/80">{siteMetadata.company.type}</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <User className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <User className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Przedsiębiorca</h3>
-                  <p className="text-[#862B44]/80">{siteMetadata.company.owner}</p>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Przedsiębiorca</h3>
+                  <p className="text-primary-500/80">{siteMetadata.company.owner}</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <FileText className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <FileText className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Dane rejestrowe</h3>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Dane rejestrowe</h3>
                   <div className="space-y-2">
                     <div>
-                      <span className="text-[#862B44]/80 font-medium">NIP: </span>
-                      <span className="text-[#862B44]/80">{siteMetadata.company.registration.nip}</span>
+                      <span className="text-primary-500/80 font-medium">NIP: </span>
+                      <span className="text-primary-500/80">{siteMetadata.company.registration.nip}</span>
                     </div>
                     <div>
-                      <span className="text-[#862B44]/80 font-medium">REGON: </span>
-                      <span className="text-[#862B44]/80">{siteMetadata.company.registration.regon}</span>
+                      <span className="text-primary-500/80 font-medium">REGON: </span>
+                      <span className="text-primary-500/80">{siteMetadata.company.registration.regon}</span>
                     </div>
                     <div>
-                      <span className="text-[#862B44]/80 font-medium">PKD: </span>
-                      <span className="text-[#862B44]/80">{siteMetadata.company.registration.pkd}</span>
+                      <span className="text-primary-500/80 font-medium">PKD: </span>
+                      <span className="text-primary-500/80">{siteMetadata.company.registration.pkd}</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-[#862B44] mt-1 flex-shrink-0" />
+                <MapPin className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-[#862B44] mb-2">Adres rejestrowy</h3>
-                  <p className="text-[#862B44]/80">{siteMetadata.company.address}</p>
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Adres rejestrowy</h3>
+                  <p className="text-primary-500/80">{siteMetadata.company.address}</p>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ export function ContactCard() {
           transition={{ delay: 0.4 }}
           className="mt-8 text-center"
         >
-          <h1 className="text-xl font-bold text-[#862B44]">
+          <h1 className="text-xl font-bold text-primary-500">
             {siteMetadata.company.name}
           </h1>
         </motion.div>

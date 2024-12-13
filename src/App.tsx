@@ -38,11 +38,11 @@ function MainContent() {
   const scrollAccumulator = useRef(0)
   const lastScrollTime = useRef(Date.now())
   const lastDelta = useRef(0)
-  const SCROLL_THRESHOLD = 100 // Increased threshold for touchpad
-  const SCROLL_COOLDOWN = 500 // Increased cooldown to prevent double jumps
-  const ACCUMULATOR_RESET_DELAY = 300 // Increased reset delay
+  const SCROLL_THRESHOLD = 100
+  const SCROLL_COOLDOWN = 500
+  const ACCUMULATOR_RESET_DELAY = 300
   const lastAccumulatorReset = useRef(Date.now())
-  const touchpadMultiplier = 0.2 // Reduced touchpad sensitivity
+  const touchpadMultiplier = 0.2
 
   useEffect(() => {
     const consent = localStorage.getItem('cookieConsent')
@@ -66,7 +66,6 @@ function MainContent() {
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return
       
-      // Allow normal scrolling behavior for select elements and their children
       if (e.target instanceof Element) {
         const targetElement = e.target as Element
         if (
@@ -84,40 +83,33 @@ function MainContent() {
 
       const now = Date.now()
       
-      // Reset accumulator if enough time has passed
       if (now - lastAccumulatorReset.current > ACCUMULATOR_RESET_DELAY) {
         scrollAccumulator.current = 0
         lastAccumulatorReset.current = now
       }
 
-      // Check cooldown
       if (now - lastScrollTime.current < SCROLL_COOLDOWN) {
         return
       }
 
-      // Detect touchpad by checking delta magnitude
       const isTouchpad = Math.abs(e.deltaY) < 50
       
-      // Apply different multipliers based on input type
       let normalizedDelta = e.deltaY
       if (isTouchpad) {
-        normalizedDelta *= touchpadMultiplier // Reduced sensitivity for touchpad
-      } else if (e.deltaMode === 1) { // DOM_DELTA_LINE
+        normalizedDelta *= touchpadMultiplier
+      } else if (e.deltaMode === 1) {
         normalizedDelta *= 8
-      } else if (e.deltaMode === 2) { // DOM_DELTA_PAGE
+      } else if (e.deltaMode === 2) {
         normalizedDelta *= window.innerHeight
       }
 
-      // Detect rapid direction changes
       if (Math.sign(normalizedDelta) !== Math.sign(lastDelta.current)) {
-        scrollAccumulator.current = 0 // Reset on direction change
+        scrollAccumulator.current = 0
       }
       lastDelta.current = normalizedDelta
 
-      // Accumulate scroll delta
       scrollAccumulator.current += normalizedDelta
 
-      // Only proceed if accumulated scroll passes threshold
       if (Math.abs(scrollAccumulator.current) < SCROLL_THRESHOLD) {
         return
       }
@@ -128,20 +120,17 @@ function MainContent() {
       const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
       let nextSection = currentSection
       
-      // Only move one section at a time
       if (scrollAccumulator.current < 0 && currentIndex > 0) {
         nextSection = navigationSections[currentIndex - 1].id
       } else if (scrollAccumulator.current > 0 && currentIndex < navigationSections.length - 1) {
         nextSection = navigationSections[currentIndex + 1].id
       }
       
-      // Reset accumulator after section change
       scrollAccumulator.current = 0
       lastAccumulatorReset.current = now
       
       handleNavigate(nextSection)
       
-      // Longer cooldown after navigation
       setTimeout(() => {
         setIsScrolling(false)
       }, SCROLL_COOLDOWN)
@@ -186,13 +175,13 @@ function MainContent() {
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#862B44]/5 via-white to-[#A13553]/5">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#862B44] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#A13553] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#862B44] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
-        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-[#A13553] rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-6000"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-6000"></div>
       </div>
 
       <div className="flex flex-col min-h-screen">

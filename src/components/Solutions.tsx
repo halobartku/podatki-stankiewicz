@@ -10,17 +10,17 @@ const expertiseHighlights = [
     title: "Jolanta Stankiewicz",
     subtitle: "Ekspert Prawa Podatkowego",
     description: "Ponad 40 lat doświadczenia w Urzędzie Skarbowym oraz sektorze prywatnym. Dogłębna znajomość procedur podatkowych i interpretacji przepisów z perspektywy obu stron.",
-    color: "from-[#862B44]/20 to-[#A13553]/10"
+    color: "from-primary-100 to-primary-50"
   },
   {
     title: "Skuteczność w Trudnych Sprawach",
     description: "Wieloletnie doświadczenie w rozwiązywaniu skomplikowanych spraw podatkowych, które wydawały się niemożliwe do rozstrzygnięcia. Specjalizacja w sprawach wymagających głębokiej analizy i niestandardowego podejścia.",
-    color: "from-[#862B44]/15 to-[#A13553]/5"
+    color: "from-primary-50 to-gray-50"
   },
   {
     title: "Unikalna Perspektywa",
     description: "Doświadczenie zdobyte w Urzędzie Skarbowym pozwala na skuteczne przewidywanie potencjalnych problemów i ich wyprzedzanie, zanim staną się poważnymi wyzwaniami dla klienta.",
-    color: "from-[#862B44]/10 to-[#A13553]/5"
+    color: "from-gray-50 to-primary-50"
   }
 ];
 
@@ -108,7 +108,7 @@ export function Solutions() {
   return (
     <motion.div 
       ref={containerRef}
-      className="relative min-h-screen bg-gradient-to-br from-[#FFF5F7] via-[#F5E6D3]/30 to-[#862B44]/10 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-primary-50/10 overflow-hidden"
       style={{
         opacity: springOpacity,
         scale: springScale,
@@ -126,7 +126,7 @@ export function Solutions() {
           className="text-center mb-12"
         >
           <motion.h2 
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#862B44] to-[#A13553] text-transparent bg-clip-text mb-4 cursor-pointer px-4"
+            className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4 cursor-pointer px-4"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 10 }}
@@ -134,7 +134,7 @@ export function Solutions() {
             Doświadczenie, Któremu Możesz Zaufać
           </motion.h2>
           <motion.p 
-            className="text-base sm:text-lg text-[#862B44] max-w-3xl mx-auto font-medium px-4"
+            className="text-base sm:text-lg text-primary-500/80 max-w-3xl mx-auto font-medium px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -149,18 +149,18 @@ export function Solutions() {
             <InteractiveCard
               key={highlight.title}
               delay={index * 0.1}
-              className="relative p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-[#862B44]/10 group cursor-pointer"
+              className="relative p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-primary-100 group cursor-pointer"
             >
               <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${highlight.color} transition-opacity duration-300`} />
               {highlight.subtitle && (
-                <p className="relative z-10 text-[#A13553] font-medium mb-2">
+                <p className="relative z-10 text-primary-400 font-medium mb-2">
                   {highlight.subtitle}
                 </p>
               )}
-              <h3 className="relative z-10 text-xl font-bold text-[#862B44] mb-4">
+              <h3 className="relative z-10 text-xl font-bold text-primary-500 mb-4">
                 {highlight.title}
               </h3>
-              <p className="relative z-10 text-[#862B44] leading-relaxed">
+              <p className="relative z-10 text-primary-500/80 leading-relaxed">
                 {highlight.description}
               </p>
             </InteractiveCard>
@@ -173,12 +173,12 @@ export function Solutions() {
             <InteractiveCard
               key={spec.title}
               delay={index * 0.1}
-              className="p-4 sm:p-6 rounded-xl bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-sm border border-[#862B44]/10 group cursor-pointer hover:bg-gradient-to-br hover:from-white/90 hover:to-white/70"
+              className="p-4 sm:p-6 rounded-xl bg-white backdrop-blur-sm border border-primary-100 group cursor-pointer hover:bg-gradient-to-br hover:from-gray-50 hover:to-primary-50"
             >
-              <h3 className="text-lg font-bold text-[#862B44] mb-3">
+              <h3 className="text-lg font-bold text-primary-500 mb-3">
                 {spec.title}
               </h3>
-              <p className="text-[#862B44] leading-relaxed">
+              <p className="text-primary-500/80 leading-relaxed">
                 {spec.description}
               </p>
             </InteractiveCard>

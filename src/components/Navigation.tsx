@@ -48,7 +48,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 right-4 z-[60] p-3 rounded-xl bg-[#862B44] text-white shadow-lg hover:bg-[#A13553] transition-colors"
+        className="lg:hidden fixed top-4 right-4 z-[60] p-3 rounded-xl bg-primary-500 text-white shadow-lg hover:bg-primary-600 transition-colors"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -70,7 +70,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-gradient-to-r from-[#862B44] to-[#A13553] shadow-xl overflow-hidden"
+              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-primary-500 shadow-xl overflow-hidden"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex flex-col h-full">
@@ -95,8 +95,8 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
                         className={cn(
                           'w-full px-6 py-4 flex items-center gap-4 transition-colors',
                           currentSection === section.id
-                            ? 'text-white bg-white/10'
-                            : 'text-white/90 hover:bg-white/5'
+                            ? 'text-secondary-500 bg-cream/90'
+                            : 'text-cream hover:bg-primary-600'
                         )}
                       >
                         <Icon size={24} />
@@ -126,7 +126,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
                   className={cn(
                     'absolute right-full mr-4 px-4 py-2 rounded-lg text-sm font-medium',
                     'opacity-0 group-hover:opacity-100 transition-opacity duration-200',
-                    'bg-[#862B44] text-white shadow-lg',
+                    'bg-primary-500 text-cream shadow-lg',
                     'whitespace-nowrap'
                   )}
                 >
@@ -138,21 +138,23 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
                   onClick={() => handleNavigate(section.id)}
                   className={cn(
                     'relative flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-300',
-                    'bg-gradient-to-r backdrop-blur-sm shadow-lg',
+                    'backdrop-blur-sm shadow-lg',
                     currentSection === section.id
-                      ? 'from-[#862B44] to-[#A13553]'
-                      : 'from-[#862B44]/40 to-[#A13553]/30 hover:from-[#862B44] hover:to-[#A13553]',
+                      ? 'bg-primary-500'
+                      : 'bg-primary-500/80 hover:bg-primary-500',
                     'border-2',
                     currentSection === section.id
-                      ? 'border-white'
-                      : 'border-white/50 hover:border-white'
+                      ? 'border-secondary-500'
+                      : 'border-cream/50 hover:border-cream'
                   )}
                 >
                   <Icon
                     size={20}
                     className={cn(
                       'transition-colors duration-300',
-                      'text-white'
+                      currentSection === section.id
+                        ? 'text-secondary-500'
+                        : 'text-cream'
                     )}
                   />
                 </button>

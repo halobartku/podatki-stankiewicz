@@ -83,11 +83,11 @@ export default function EuVat() {
   return (
     <div className="px-2 sm:px-4">
       {/* Search Form */}
-      <div className="mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full max-w-full">
+      <div className="mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-primary-100 w-full max-w-full">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="country" className="block text-sm font-medium text-[#862B44]">
+              <label htmlFor="country" className="block text-sm font-medium text-primary-500">
                 Kraj
               </label>
               <div className="mt-1 relative">
@@ -100,9 +100,9 @@ export default function EuVat() {
                     setError(null);
                   }}
                   className={cn(
-                    "block w-full rounded-lg border border-[#862B44]/10 bg-white/50",
+                    "block w-full rounded-lg border border-primary-100 bg-white/50",
                     "px-4 py-2.5 text-sm backdrop-blur-sm",
-                    "focus:border-[#862B44] focus:ring-2 focus:ring-[#862B44]/20",
+                    "focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20",
                     "disabled:opacity-50 disabled:cursor-not-allowed",
                     "transition-colors duration-200",
                     "pr-12"
@@ -116,11 +116,11 @@ export default function EuVat() {
                     </option>
                   ))}
                 </select>
-                <Globe className="w-5 h-5 text-[#862B44]/40 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+                <Globe className="w-5 h-5 text-primary-500/40 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
             <div>
-              <label htmlFor="vatNumber" className="block text-sm font-medium text-[#862B44]">
+              <label htmlFor="vatNumber" className="block text-sm font-medium text-primary-500">
                 Numer VAT
               </label>
               <div className="mt-1 relative">
@@ -134,9 +134,9 @@ export default function EuVat() {
                     setError(null);
                   }}
                   className={cn(
-                    "block w-full rounded-lg border border-[#862B44]/10 bg-white/50",
+                    "block w-full rounded-lg border border-primary-100 bg-white/50",
                     "px-4 py-2.5 text-sm backdrop-blur-sm",
-                    "focus:border-[#862B44] focus:ring-2 focus:ring-[#862B44]/20",
+                    "focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20",
                     "disabled:opacity-50 disabled:cursor-not-allowed",
                     "transition-colors duration-200",
                     "pr-12"
@@ -144,7 +144,7 @@ export default function EuVat() {
                   placeholder="Wprowadź numer VAT"
                   disabled={loading}
                 />
-                <Search className="w-5 h-5 text-[#862B44]/40 absolute right-3 top-1/2 transform -translate-y-1/2" />
+                <Search className="w-5 h-5 text-primary-500/40 absolute right-3 top-1/2 transform -translate-y-1/2" />
               </div>
             </div>
           </div>
@@ -153,11 +153,11 @@ export default function EuVat() {
             disabled={loading}
             className={cn(
               "w-full rounded-lg",
-              "bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40",
+              "bg-primary-500",
               "px-8 py-2.5 text-sm font-medium text-white",
               "transition-all",
-              "hover:shadow-lg hover:shadow-[#DAA520]/20",
-              "focus:outline-none focus:ring-2 focus:ring-[#862B44]/50",
+              "hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/10",
+              "focus:outline-none focus:ring-2 focus:ring-primary-500/50",
               "disabled:opacity-50 disabled:cursor-not-allowed",
             )}
             whileHover={{ scale: 1.02 }}
@@ -178,7 +178,7 @@ export default function EuVat() {
       {result && (
         <div className="space-y-4 w-full max-w-full">
           {/* Status */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-primary-100 w-full">
             <div className="flex flex-col items-center gap-2">
               <div className={cn(
                 "inline-flex items-center gap-2 px-4 py-2 rounded-full",
@@ -200,38 +200,38 @@ export default function EuVat() {
           {/* Main Info Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
             {/* Company Info */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-primary-100 w-full">
               <div className="flex items-start gap-3">
-                <Building className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <Building className="w-5 h-5 text-primary-500 mt-1 flex-shrink-0" />
                 <div className="min-w-0">
-                  <h4 className="font-medium text-[#862B44] text-sm mb-2">Dane firmy</h4>
+                  <h4 className="font-medium text-primary-500 text-sm mb-2">Dane firmy</h4>
                   {result.name ? (
-                    <p className="text-[#862B44]/80 text-sm break-words">{result.name}</p>
+                    <p className="text-primary-500/80 text-sm break-words">{result.name}</p>
                   ) : (
-                    <p className="text-[#862B44]/60 italic text-sm">Nazwa niedostępna</p>
+                    <p className="text-primary-500/60 italic text-sm">Nazwa niedostępna</p>
                   )}
                 </div>
               </div>
             </div>
 
             {/* VAT Number */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-primary-100 w-full">
               <div className="flex items-start gap-3">
-                <Globe className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <Globe className="w-5 h-5 text-primary-500 mt-1 flex-shrink-0" />
                 <div className="min-w-0">
-                  <h4 className="font-medium text-[#862B44] text-sm mb-2">Numer VAT</h4>
-                  <p className="text-[#862B44]/80 text-sm font-mono">{result.countryCode} {result.vatNumber}</p>
+                  <h4 className="font-medium text-primary-500 text-sm mb-2">Numer VAT</h4>
+                  <p className="text-primary-500/80 text-sm font-mono">{result.countryCode} {result.vatNumber}</p>
                 </div>
               </div>
             </div>
 
             {/* Verification Date */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-primary-100 w-full">
               <div className="flex items-start gap-3">
-                <Calendar className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <Calendar className="w-5 h-5 text-primary-500 mt-1 flex-shrink-0" />
                 <div className="min-w-0">
-                  <h4 className="font-medium text-[#862B44] text-sm mb-2">Data weryfikacji</h4>
-                  <p className="text-[#862B44]/80 text-sm">
+                  <h4 className="font-medium text-primary-500 text-sm mb-2">Data weryfikacji</h4>
+                  <p className="text-primary-500/80 text-sm">
                     {new Date(result.requestDate).toLocaleDateString('pl-PL', {
                       year: 'numeric',
                       month: 'long',
@@ -247,12 +247,12 @@ export default function EuVat() {
 
           {/* Address */}
           {result.address && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10 w-full">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-primary-100 w-full">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-primary-500 mt-1 flex-shrink-0" />
                 <div className="min-w-0">
-                  <h4 className="font-medium text-[#862B44] text-sm mb-2">Adres</h4>
-                  <p className="text-[#862B44]/80 text-sm break-words">{result.address}</p>
+                  <h4 className="font-medium text-primary-500 text-sm mb-2">Adres</h4>
+                  <p className="text-primary-500/80 text-sm break-words">{result.address}</p>
                 </div>
               </div>
             </div>

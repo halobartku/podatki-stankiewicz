@@ -43,17 +43,17 @@ export function CookieConsent({ show, onAccept }: CookieConsentProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blue-900/20 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary-500/10 backdrop-blur-sm"
         >
           <div className="bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden">
             <div className="p-6">
               <div className="flex items-start gap-4 mb-4">
-                <Cookie className="w-6 h-6 text-blue-500 flex-shrink-0 mt-1" />
+                <Cookie className="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" />
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-blue-900 mb-2">Ustawienia plików cookie</h3>
-                  <p className="text-blue-700 text-sm">
+                  <h3 className="text-lg font-semibold text-primary-500 mb-2">Ustawienia plików cookie</h3>
+                  <p className="text-primary-500/80 text-sm">
                     Używamy plików cookie, aby poprawić jakość korzystania z naszej strony. Kontynuując przeglądanie tej witryny, zgadzasz się na używanie plików cookie.
-                    <a href="/privacy" className="text-blue-500 hover:text-blue-600 ml-1">
+                    <a href="/privacy" className="text-primary-400 hover:text-primary-500 ml-1">
                       Dowiedz się więcej
                     </a>
                   </p>
@@ -64,53 +64,53 @@ export function CookieConsent({ show, onAccept }: CookieConsentProps) {
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-blue-900">Niezbędne pliki cookie</h4>
-                      <p className="text-sm text-blue-700">Wymagane do prawidłowego funkcjonowania strony</p>
+                      <h4 className="font-medium text-primary-500">Niezbędne pliki cookie</h4>
+                      <p className="text-sm text-primary-500/80">Wymagane do prawidłowego funkcjonowania strony</p>
                     </div>
                     <input
                       type="checkbox"
                       checked={preferences.necessary}
                       disabled
-                      className="rounded border-blue-300 text-blue-500 focus:ring-blue-500"
+                      className="rounded border-primary-300 text-primary-500 focus:ring-primary-500"
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-blue-900">Pliki cookie wydajności</h4>
-                      <p className="text-sm text-blue-700">Pomagają nam mierzyć i poprawiać wydajność strony</p>
+                      <h4 className="font-medium text-primary-500">Pliki cookie wydajności</h4>
+                      <p className="text-sm text-primary-500/80">Pomagają nam mierzyć i poprawiać wydajność strony</p>
                     </div>
                     <input
                       type="checkbox"
                       checked={preferences.performance}
                       onChange={(e) => setPreferences(prev => ({ ...prev, performance: e.target.checked }))}
-                      className="rounded border-blue-300 text-blue-500 focus:ring-blue-500"
+                      className="rounded border-primary-300 text-primary-500 focus:ring-primary-500"
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-blue-900">Pliki cookie analityczne</h4>
-                      <p className="text-sm text-blue-700">Pomagają nam ulepszać naszą stronę</p>
+                      <h4 className="font-medium text-primary-500">Pliki cookie analityczne</h4>
+                      <p className="text-sm text-primary-500/80">Pomagają nam ulepszać naszą stronę</p>
                     </div>
                     <input
                       type="checkbox"
                       checked={preferences.analytics}
                       onChange={(e) => setPreferences(prev => ({ ...prev, analytics: e.target.checked }))}
-                      className="rounded border-blue-300 text-blue-500 focus:ring-blue-500"
+                      className="rounded border-primary-300 text-primary-500 focus:ring-primary-500"
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-blue-900">Pliki cookie marketingowe</h4>
-                      <p className="text-sm text-blue-700">Używane do personalizacji reklam</p>
+                      <h4 className="font-medium text-primary-500">Pliki cookie marketingowe</h4>
+                      <p className="text-sm text-primary-500/80">Używane do personalizacji reklam</p>
                     </div>
                     <input
                       type="checkbox"
                       checked={preferences.marketing}
                       onChange={(e) => setPreferences(prev => ({ ...prev, marketing: e.target.checked }))}
-                      className="rounded border-blue-300 text-blue-500 focus:ring-blue-500"
+                      className="rounded border-primary-300 text-primary-500 focus:ring-primary-500"
                     />
                   </div>
                 </div>
@@ -119,13 +119,13 @@ export function CookieConsent({ show, onAccept }: CookieConsentProps) {
               <div className="flex flex-col gap-3">
                 <button
                   onClick={handleAccept}
-                  className="w-full bg-blue-500 text-white px-6 py-2.5 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                  className="w-full bg-primary-500 text-white px-6 py-2.5 rounded-lg hover:bg-primary-600 transition-colors font-medium"
                 >
                   Zaakceptuj wszystkie
                 </button>
                 <button
                   onClick={() => setShowPreferences(!showPreferences)}
-                  className="w-full flex items-center justify-center gap-2 text-blue-900 hover:text-blue-700 transition-colors py-2"
+                  className="w-full flex items-center justify-center gap-2 text-primary-500 hover:text-primary-600 transition-colors py-2"
                 >
                   <Settings className="w-4 h-4" />
                   {showPreferences ? 'Ukryj' : 'Dostosuj'} preferencje
@@ -133,7 +133,7 @@ export function CookieConsent({ show, onAccept }: CookieConsentProps) {
                 {showPreferences && (
                   <button
                     onClick={handleSavePreferences}
-                    className="w-full bg-blue-100 text-blue-900 px-6 py-2.5 rounded-lg hover:bg-blue-200 transition-colors font-medium"
+                    className="w-full bg-primary-50 text-primary-500 px-6 py-2.5 rounded-lg hover:bg-primary-100 transition-colors font-medium"
                   >
                     Zapisz preferencje
                   </button>

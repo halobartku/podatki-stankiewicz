@@ -32,7 +32,7 @@ export const siteMetadata = {
   company: {
     name: 'KANCELARIA PODATKOWA JOLANTA STANKIEWICZ',
     address: 'ul. KOWALSKA 8-9/D, 82-300 Elbląg',
-    type: 'indywidualna działalność gospodarcza',
+    type: 'Jednoosobowa Działalność Gospodarcza',
     owner: 'JOLANTA STANKIEWICZ',
     email: '', // Add company email when available
     phone: '', // Add company phone when available
