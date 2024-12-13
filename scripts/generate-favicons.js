@@ -2,6 +2,7 @@ import sharp from 'sharp';
 import path from 'path';
 import { promises as fs } from 'fs';
 import { fileURLToPath } from 'url';
+import toIco from 'to-ico';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +34,19 @@ async function generateFavicons() {
       .toFile(path.join(publicDir, config.name));
     
     console.log(`Generated ${config.name}`);
+  }
+
+  // Generate favicon.ico from 16x16 and 32x32 PNGs
+  try {
+    const png16 = await fs.readFile(path.join(publicDir, 'favicon-16x16.png'));
+    const png32 = await fs.readFile(path.join(publicDir, 'favicon-32x32.png'));
+    
+    const ico = await toIco([png16, png32]);
+    await fs.writeFile(path.join(publicDir, 'favicon.ico'), ico);
+    
+    console.log('Generated favicon.ico');
+  } catch (error) {
+    console.error('Error generating favicon.ico:', error);
   }
 }
 
