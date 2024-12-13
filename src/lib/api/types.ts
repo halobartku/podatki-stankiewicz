@@ -8,19 +8,35 @@ interface Representative {
   lastName: string;
 }
 
+interface StatusVatResult {
+  status: string;
+  result: boolean;
+  message: string;
+}
+
 export interface PolishCompanyData {
   name: string;
   nip: string;
   statusVat: string;
   regon: string;
+  krs?: string;
+  pesel?: string;
   workingAddress: string;
   residenceAddress?: string;
   registrationLegalDate?: string;
-  krs?: string;
-  accountNumbers?: string[];
-  representatives?: Representative[];
-  authorizedClerks?: Representative[];
-  partners?: Representative[];
+  registrationDenialDate?: string;
+  registrationDenialBasis?: string;
+  restorationDate?: string;
+  restorationBasis?: string;
+  removalDate?: string;
+  removalBasis?: string;
+  accountNumbers: string[];
+  hasVirtualAccounts?: boolean;
+  representatives: Representative[];
+  authorizedClerks: Representative[];
+  partners: Representative[];
+  ibans: string[];
+  statusVatResult: StatusVatResult;
 }
 
 export interface ViesResponse {

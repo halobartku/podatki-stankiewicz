@@ -3,6 +3,21 @@ import { motion } from 'framer-motion';
 import { verifyCompany } from '../../lib/api/kas';
 import type { PolishCompanyData } from '../../lib/api/types';
 import { cn } from '../../lib/utils';
+import { 
+  Building, 
+  Calendar, 
+  CreditCard, 
+  FileText, 
+  MapPin, 
+  Search,
+  Users,
+  AlertCircle,
+  CheckCircle2,
+  XCircle,
+  Info,
+  Clock,
+  AlertTriangle
+} from 'lucide-react';
 
 export default function PolishVat() {
   const [nip, setNip] = useState('');
@@ -26,7 +41,8 @@ export default function PolishVat() {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return null;
     return new Date(dateString).toLocaleDateString('pl-PL', {
       year: 'numeric',
       month: 'long',
@@ -35,153 +51,268 @@ export default function PolishVat() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 space-y-6 bg-gray-50/50 backdrop-blur-sm rounded-lg border border-white/10">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="nip" className="block text-sm font-medium text-gray-800">
-            NIP
-          </label>
-          <input
-            type="text"
-            id="nip"
-            value={nip}
-            onChange={(e) => setNip(e.target.value)}
-            className={cn(
-              "mt-1 block w-full rounded-md border border-white/10 bg-white/5",
-              "px-3 py-2 text-sm backdrop-blur-sm",
-              "focus:border-white focus:ring-2 focus:ring-white/20",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
-              "transition-colors duration-200"
-            )}
-            placeholder="Wprowadź NIP"
+    <div className="p-4">
+      {/* Search Form */}
+      <div className="mb-4 bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-[#862B44]/10">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="nip" className="block text-sm font-medium text-[#862B44]">
+              NIP
+            </label>
+            <div className="mt-1 relative">
+              <input
+                type="text"
+                id="nip"
+                value={nip}
+                onChange={(e) => setNip(e.target.value)}
+                className={cn(
+                  "block w-full rounded-lg border border-[#862B44]/10 bg-white/50",
+                  "px-4 py-2.5 text-sm backdrop-blur-sm",
+                  "focus:border-[#862B44] focus:ring-2 focus:ring-[#862B44]/20",
+                  "disabled:opacity-50 disabled:cursor-not-allowed",
+                  "transition-colors duration-200",
+                  "pr-12"
+                )}
+                placeholder="Wprowadź NIP"
+                disabled={loading}
+              />
+              <Search className="w-5 h-5 text-[#862B44]/40 absolute right-3 top-1/2 transform -translate-y-1/2" />
+            </div>
+          </div>
+          <motion.button
+            type="submit"
             disabled={loading}
-          />
-        </div>
-        <motion.button
-          type="submit"
-          disabled={loading}
-          className={cn(
-            "w-full rounded-lg",
-            "bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40",
-            "px-8 py-3 text-sm font-medium text-white",
-            "transition-all",
-            "hover:shadow-lg hover:shadow-[#DAA520]/20",
-            "focus:outline-none focus:ring-2 focus:ring-[#862B44]/50",
-            "disabled:opacity-50 disabled:cursor-not-allowed",
-          )}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {loading ? 'Weryfikacja...' : 'Zweryfikuj NIP'}
-        </motion.button>
-      </form>
+            className={cn(
+              "w-full rounded-lg",
+              "bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40",
+              "px-8 py-2.5 text-sm font-medium text-white",
+              "transition-all",
+              "hover:shadow-lg hover:shadow-[#DAA520]/20",
+              "focus:outline-none focus:ring-2 focus:ring-[#862B44]/50",
+              "disabled:opacity-50 disabled:cursor-not-allowed",
+            )}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {loading ? 'Weryfikacja...' : 'Zweryfikuj NIP'}
+          </motion.button>
+        </form>
+      </div>
 
       {error && (
-        <div className={cn(
-          "p-4 rounded-lg",
-          "border border-error-light/20",
-          "bg-error-light/10 backdrop-blur-sm",
-          "text-error-dark text-sm"
-        )}>
-          {error}
+        <div className="mb-4 flex items-start gap-3 p-3 rounded-xl border border-error-light/20 bg-error-light/10 backdrop-blur-sm text-error-dark">
+          <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+          <p className="text-sm">{error}</p>
         </div>
       )}
 
       {companyData && (
-        <div className={cn(
-          "p-4 rounded-lg border backdrop-blur-sm",
-          companyData.statusVat === "Czynny" 
-            ? "border-success-light/20 bg-success-light/10" 
-            : "border-warning-light/20 bg-warning-light/10"
-        )}>
-          <div className={cn(
-            "text-lg font-medium mb-3",
-            companyData.statusVat === "Czynny" ? "text-success-dark" : "text-warning-dark"
-          )}>
-            Status: {companyData.statusVat}
+        <div className="space-y-4">
+          {/* Status */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+            <div className="flex flex-col items-center gap-2">
+              <div className={cn(
+                "inline-flex items-center gap-2 px-4 py-2 rounded-full",
+                "text-sm font-medium",
+                companyData.statusVat === "Czynny"
+                  ? "bg-success-light/10 text-success-dark"
+                  : "bg-warning-light/10 text-warning-dark"
+              )}>
+                {companyData.statusVat === "Czynny" ? (
+                  <CheckCircle2 className="w-5 h-5" />
+                ) : (
+                  <XCircle className="w-5 h-5" />
+                )}
+                Status: {companyData.statusVat}
+              </div>
+              <p className="text-sm text-[#862B44]/80 text-center">
+                {companyData.statusVatResult.message}
+              </p>
+            </div>
           </div>
-          <dl className="space-y-2 text-sm text-gray-700">
-            <div className="flex">
-              <dt className="w-32 font-medium">Nazwa firmy:</dt>
-              <dd className="flex-1">{companyData.name}</dd>
+
+          {/* Main Info Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Company Info */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+              <div className="flex items-start gap-3">
+                <Building className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <div className="space-y-2 min-w-0">
+                  <h3 className="text-base font-semibold text-[#862B44] break-words">{companyData.name}</h3>
+                  <div className="space-y-1 text-sm">
+                    <div>
+                      <span className="font-medium text-[#862B44]">NIP: </span>
+                      <span className="text-[#862B44]/80">{companyData.nip}</span>
+                    </div>
+                    <div>
+                      <span className="font-medium text-[#862B44]">REGON: </span>
+                      <span className="text-[#862B44]/80">{companyData.regon}</span>
+                    </div>
+                    {companyData.krs && (
+                      <div>
+                        <span className="font-medium text-[#862B44]">KRS: </span>
+                        <span className="text-[#862B44]/80">{companyData.krs}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex">
-              <dt className="w-32 font-medium">NIP:</dt>
-              <dd>{companyData.nip}</dd>
+
+            {/* Address */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <div className="space-y-2 min-w-0">
+                  <div>
+                    <h4 className="font-medium text-[#862B44] text-sm">Adres:</h4>
+                    <p className="text-[#862B44]/80 text-sm break-words">{companyData.workingAddress}</p>
+                  </div>
+                  {companyData.residenceAddress && companyData.residenceAddress !== companyData.workingAddress && (
+                    <div>
+                      <h4 className="font-medium text-[#862B44] text-sm">Adres siedziby:</h4>
+                      <p className="text-[#862B44]/80 text-sm break-words">{companyData.residenceAddress}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="flex">
-              <dt className="w-32 font-medium">REGON:</dt>
-              <dd>{companyData.regon}</dd>
+
+            {/* Bank Accounts */}
+            {(companyData.accountNumbers.length > 0 || companyData.ibans.length > 0) && (
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+                <div className="flex items-start gap-3">
+                  <CreditCard className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h4 className="font-medium text-[#862B44] text-sm">Rachunki bankowe</h4>
+                      {companyData.hasVirtualAccounts && (
+                        <div className="flex items-center gap-1">
+                          <Info className="w-4 h-4 text-[#862B44]/70" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      {[...new Set([...companyData.accountNumbers, ...companyData.ibans])].map((account, index) => (
+                        <div key={index} className="text-[#862B44]/80 text-sm font-mono break-all">
+                          {account}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Additional Info Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Registration Dates */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+              <div className="flex items-start gap-3">
+                <Calendar className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <div className="space-y-2 min-w-0">
+                  {companyData.registrationLegalDate && (
+                    <div>
+                      <h4 className="font-medium text-[#862B44] text-sm">Data rejestracji:</h4>
+                      <p className="text-[#862B44]/80 text-sm">{formatDate(companyData.registrationLegalDate)}</p>
+                    </div>
+                  )}
+                  {companyData.registrationDenialDate && (
+                    <div>
+                      <h4 className="font-medium text-[#862B44] text-sm">Data odmowy rejestracji:</h4>
+                      <p className="text-[#862B44]/80 text-sm">{formatDate(companyData.registrationDenialDate)}</p>
+                      {companyData.registrationDenialBasis && (
+                        <p className="text-xs text-[#862B44]/70">Podstawa: {companyData.registrationDenialBasis}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="flex">
-              <dt className="w-32 font-medium">KRS:</dt>
-              <dd>{companyData.krs || 'Brak'}</dd>
+
+            {/* Status Changes */}
+            {(companyData.restorationDate || companyData.removalDate) && (
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                  <div className="space-y-2 min-w-0">
+                    {companyData.restorationDate && (
+                      <div>
+                        <h4 className="font-medium text-[#862B44] text-sm">Przywrócenie jako podatnika VAT:</h4>
+                        <p className="text-[#862B44]/80 text-sm">{formatDate(companyData.restorationDate)}</p>
+                        {companyData.restorationBasis && (
+                          <p className="text-xs text-[#862B44]/70">Podstawa: {companyData.restorationBasis}</p>
+                        )}
+                      </div>
+                    )}
+                    {companyData.removalDate && (
+                      <div>
+                        <h4 className="font-medium text-[#862B44] text-sm">Wykreślenie jako podatnika VAT:</h4>
+                        <p className="text-[#862B44]/80 text-sm">{formatDate(companyData.removalDate)}</p>
+                        {companyData.removalBasis && (
+                          <p className="text-xs text-[#862B44]/70">Podstawa: {companyData.removalBasis}</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* People */}
+          {(companyData.representatives.length > 0 || 
+            companyData.authorizedClerks.length > 0 || 
+            companyData.partners.length > 0) && (
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-[#862B44]/10">
+              <div className="flex items-start gap-3">
+                <Users className="w-5 h-5 text-[#862B44] mt-1 flex-shrink-0" />
+                <div className="w-full min-w-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    {companyData.representatives.length > 0 && (
+                      <div>
+                        <h4 className="font-medium text-[#862B44] text-sm mb-2">Reprezentanci:</h4>
+                        <ul className="space-y-1">
+                          {companyData.representatives.map((rep, index) => (
+                            <li key={index} className="text-[#862B44]/80 text-sm">
+                              {rep.firstName} {rep.lastName}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {companyData.authorizedClerks.length > 0 && (
+                      <div>
+                        <h4 className="font-medium text-[#862B44] text-sm mb-2">Prokurenci:</h4>
+                        <ul className="space-y-1">
+                          {companyData.authorizedClerks.map((clerk, index) => (
+                            <li key={index} className="text-[#862B44]/80 text-sm">
+                              {clerk.firstName} {clerk.lastName}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {companyData.partners.length > 0 && (
+                      <div>
+                        <h4 className="font-medium text-[#862B44] text-sm mb-2">Wspólnicy:</h4>
+                        <ul className="space-y-1">
+                          {companyData.partners.map((partner, index) => (
+                            <li key={index} className="text-[#862B44]/80 text-sm">
+                              {partner.firstName} {partner.lastName}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex">
-              <dt className="w-32 font-medium">Adres:</dt>
-              <dd className="flex-1">{companyData.workingAddress}</dd>
-            </div>
-            {companyData.residenceAddress && companyData.residenceAddress !== companyData.workingAddress && (
-              <div className="flex">
-                <dt className="w-32 font-medium">Adres siedziby:</dt>
-                <dd className="flex-1">{companyData.residenceAddress}</dd>
-              </div>
-            )}
-            {companyData.registrationLegalDate && (
-              <div className="flex">
-                <dt className="w-32 font-medium">Data rejestracji:</dt>
-                <dd>{formatDate(companyData.registrationLegalDate)}</dd>
-              </div>
-            )}
-            {companyData.accountNumbers && companyData.accountNumbers.length > 0 && (
-              <div className="flex">
-                <dt className="w-32 font-medium">Konta bankowe:</dt>
-                <dd className="flex-1">
-                  <ul className="list-disc list-inside space-y-1">
-                    {companyData.accountNumbers.map((account, index) => (
-                      <li key={index}>{account}</li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            )}
-            {companyData.representatives && companyData.representatives.length > 0 && (
-              <div className="flex">
-                <dt className="w-32 font-medium">Reprezentanci:</dt>
-                <dd className="flex-1">
-                  <ul className="list-disc list-inside space-y-1">
-                    {companyData.representatives.map((rep, index) => (
-                      <li key={index}>{rep.firstName} {rep.lastName}</li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            )}
-            {companyData.authorizedClerks && companyData.authorizedClerks.length > 0 && (
-              <div className="flex">
-                <dt className="w-32 font-medium">Prokurenci:</dt>
-                <dd className="flex-1">
-                  <ul className="list-disc list-inside space-y-1">
-                    {companyData.authorizedClerks.map((clerk, index) => (
-                      <li key={index}>{clerk.firstName} {clerk.lastName}</li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            )}
-            {companyData.partners && companyData.partners.length > 0 && (
-              <div className="flex">
-                <dt className="w-32 font-medium">Wspólnicy:</dt>
-                <dd className="flex-1">
-                  <ul className="list-disc list-inside space-y-1">
-                    {companyData.partners.map((partner, index) => (
-                      <li key={index}>{partner.firstName} {partner.lastName}</li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            )}
-          </dl>
+          )}
         </div>
       )}
     </div>
