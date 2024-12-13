@@ -48,13 +48,15 @@ export function ContactCard() {
                 <div>
                   <h3 className="text-lg font-semibold text-[#862B44] mb-2">Adres do doręczeń</h3>
                   <p className="text-[#862B44]/80 mb-3">{siteMetadata.company.address}</p>
-                  <button
+                  <motion.button
                     onClick={handleNavigation}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#862B44] to-[#A13553] text-white rounded-lg hover:opacity-90 transition-opacity"
+                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#862B44] via-[#A13553] to-[#DAA520]/40 px-8 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#DAA520]/20 focus:outline-none focus:ring-2 focus:ring-[#862B44]/50 active:scale-95"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <Navigation className="w-4 h-4" />
                     Prowadź do
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 

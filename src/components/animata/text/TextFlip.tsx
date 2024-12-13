@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function TextFlip() {
   const words = [
+    'dla Osób Prywatnych',
     'dla Firm',
     'dla Przedsiębiorców',
     'dla Spółek',

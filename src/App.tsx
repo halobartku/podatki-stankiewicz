@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { 
-  Calculator,
-  FileText,
+  BarChart3,
+  Briefcase,
   Home,
-  Users,
+  GraduationCap,
   Phone
 } from 'lucide-react'
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -23,9 +23,9 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 
 const navigationSections: NavItem[] = [
   { id: 'home', title: 'Strona Główna', label: 'Strona Główna', href: '#home', icon: Home },
-  { id: 'services', title: 'Rozwiązania', label: 'Rozwiązania', href: '#services', icon: Calculator },
-  { id: 'expertise', title: 'Usługi', label: 'Usługi', href: '#expertise', icon: FileText },
-  { id: 'team', title: 'Zespół', label: 'Zespół', href: '#team', icon: Users },
+  { id: 'services', title: 'Rozwiązania', label: 'Rozwiązania Biznesowe', href: '#services', icon: Briefcase },
+  { id: 'expertise', title: 'Usługi', label: 'Specjalizacje', href: '#expertise', icon: GraduationCap },
+  { id: 'team', title: 'Weryfikacja Kontrahenta', label: 'Weryfikacja Kontrahenta', href: '#team', icon: BarChart3 },
   { id: 'contact', title: 'Kontakt', label: 'Kontakt', href: '#contact', icon: Phone },
 ]
 

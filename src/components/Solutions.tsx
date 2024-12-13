@@ -64,7 +64,7 @@ export function Solutions() {
         </motion.div>
 
         {/* Expertise Highlights Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {expertiseHighlights.map((highlight, index) => (
             <motion.div
               key={highlight.title}
@@ -104,21 +104,6 @@ export function Solutions() {
             </motion.div>
           ))}
         </div>
-
-        {/* Experience Quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-lg text-[#862B44] max-w-3xl mx-auto italic">
-            "Każda sprawa podatkowa ma swoje rozwiązanie. Dzięki ponad 40 letniemu doświadczeniu w branży znajdę wyjścia nawet z najtrudniejszej sytuacji."
-          </p>
-          <p className="mt-2 text-[#A13553] font-medium">
-            - Jolanta Stankiewicz
-          </p>
-        </motion.div>
       </div>
     </div>
   );
