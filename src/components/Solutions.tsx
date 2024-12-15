@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, ReactNode } from "react";
 import { Button } from "./ui/button";
-import { BackgroundGradient } from './BackgroundGradient';
 
 const expertiseHighlights = [
   {
@@ -108,15 +107,13 @@ export function Solutions() {
   return (
     <motion.div 
       ref={containerRef}
-      className="relative min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-primary-50/10 overflow-hidden"
+      className="relative min-h-screen overflow-hidden"
       style={{
         opacity: springOpacity,
         scale: springScale,
         y: springY
       }}
     >
-      <BackgroundGradient />
-      
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
         <motion.div

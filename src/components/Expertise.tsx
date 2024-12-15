@@ -56,7 +56,7 @@ const expertiseAreas = [
 
 export function Expertise() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 overflow-hidden py-12">
+    <div className="relative min-h-screen overflow-hidden py-12">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -71,11 +71,6 @@ export function Expertise() {
             Profesjonalne usługi podatkowe i księgowe dla firm oraz osób prywatnych
           </p>
         </div>
-
-        {/* Background decorative elements */}
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary-100 rounded-full blur-[100px] opacity-20 animate-blob-slow" />
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-primary-200 rounded-full blur-[100px] opacity-20 animate-blob-slow animation-delay-2000" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-primary-300 rounded-full blur-[100px] opacity-20 animate-blob-slow animation-delay-4000" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {expertiseAreas.map((area, index) => (

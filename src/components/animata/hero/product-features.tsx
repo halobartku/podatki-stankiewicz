@@ -96,17 +96,6 @@ export default function ProductFeatures() {
 
   return (
     <section className="relative flex w-full h-full flex-col items-center gap-2 pt-0 pb-0 overflow-hidden">
-      {/* Clean, professional background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100" />
-      
-      {/* Subtle gradient overlays */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,_rgba(0,0,128,0.03)_0%,_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_rgba(0,0,128,0.03)_0%,_transparent_50%)]" />
-      
-      {/* Very subtle animated blobs */}
-      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.15] animate-blob"></div>
-      <div className="absolute -bottom-32 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.15] animate-blob animation-delay-4000"></div>
-      
       {/* Content */}
       <div className="relative w-full">
         <motion.div 
