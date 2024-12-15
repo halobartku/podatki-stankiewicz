@@ -62,6 +62,53 @@ function MainContent() {
     }
   }
 
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input or textarea
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return
+      }
+
+      const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
+      let nextSection: string | null = null
+
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'ArrowLeft':
+          if (currentIndex > 0) {
+            nextSection = navigationSections[currentIndex - 1].id
+          }
+          break
+        case 'ArrowDown':
+        case 'ArrowRight':
+          if (currentIndex < navigationSections.length - 1) {
+            nextSection = navigationSections[currentIndex + 1].id
+          }
+          break
+        // Number keys 1-5 for direct section access
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+          const index = parseInt(e.key) - 1
+          if (index >= 0 && index < navigationSections.length) {
+            nextSection = navigationSections[index].id
+          }
+          break
+      }
+
+      if (nextSection && !isScrolling) {
+        e.preventDefault()
+        handleNavigate(nextSection)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentSection, isScrolling])
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return
