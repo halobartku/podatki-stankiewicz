@@ -1,8 +1,9 @@
 'use client'
 
-import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, ReactNode } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { useRef, ReactNode, useState } from "react";
 import { Button } from "./ui/button";
+import { cn } from "../lib/utils";
 
 const expertiseHighlights = [
   {
@@ -50,40 +51,80 @@ interface InteractiveCardProps {
 
 const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
+
+  const rotateX = useSpring(useTransform(y, [0, 1], [7, -7]), {
+    stiffness: 300,
+    damping: 30
+  });
+  const rotateY = useSpring(useTransform(x, [0, 1], [-7, 7]), {
+    stiffness: 300,
+    damping: 30
+  });
+
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    x.set(mouseX / rect.width);
+    y.set(mouseY / rect.height);
+  }
 
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { 
-        opacity: 1, 
-        y: 0,
-        scale: isPressed ? 0.95 : isHovered ? 1.02 : 1,
-        x: isHovered ? 5 : 0
-      } : {}}
-      transition={{ 
-        delay: delay,
-        duration: 0.4,
-        type: "spring",
-        stiffness: 100,
-        damping: 15
+      className={cn(
+        "relative rounded-2xl border border-primary-100/50 cursor-pointer overflow-hidden perspective-[1000px]",
+        "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-500",
+        "hover:before:bg-primary-500/5",
+        "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_8px_32px_rgba(0,0,0,0.12)] after:transition-all after:duration-500 after:ease-out",
+        "hover:after:opacity-100 hover:after:shadow-[0_16px_48px_rgba(0,0,0,0.18)]",
+        "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-110",
+        className
+      )}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
       }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      onPointerDown={() => setIsPressed(true)}
-      onPointerUp={() => setIsPressed(false)}
-      onPointerLeave={() => {
-        setIsPressed(false);
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
         setIsHovered(false);
+        x.set(0.5);
+        y.set(0.5);
       }}
-      className={`transform transition-all duration-300 ${className} ${
-        isHovered ? 'shadow-xl' : 'shadow-md'
-      }`}
+      whileHover={{ 
+        scale: 1.02,
+        z: 20,
+        transition: { 
+          type: "spring",
+          stiffness: 400,
+          damping: 25
+        }
+      }}
     >
-      {children}
+      <div className={`absolute inset-0 bg-gradient-to-br ${className}`} />
+      <div 
+        className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-[800ms] ease-in-out will-change-transform"
+      />
+      <motion.div 
+        className="relative z-30"
+        animate={{ 
+          y: isHovered ? -2 : 0,
+          scale: isHovered ? 1.01 : 1
+        }}
+        transition={{ 
+          type: "spring",
+          stiffness: 500,
+          damping: 30
+        }}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 };
@@ -146,20 +187,30 @@ export function Solutions() {
             <InteractiveCard
               key={highlight.title}
               delay={index * 0.1}
-              className="relative p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-primary-100 group cursor-pointer"
+              className={highlight.color}
             >
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${highlight.color} transition-opacity duration-300`} />
-              {highlight.subtitle && (
-                <p className="relative z-10 text-primary-400 font-medium mb-2">
-                  {highlight.subtitle}
-                </p>
-              )}
-              <h3 className="relative z-10 text-xl font-bold text-primary-500 mb-4">
-                {highlight.title}
-              </h3>
-              <p className="relative z-10 text-primary-500/80 leading-relaxed">
-                {highlight.description}
-              </p>
+              <div className="p-6 sm:p-8">
+                {highlight.subtitle && (
+                  <motion.p 
+                    className="text-primary-400 font-medium mb-2"
+                    whileHover={{ scale: 1.01 }}
+                  >
+                    {highlight.subtitle}
+                  </motion.p>
+                )}
+                <motion.h3 
+                  className="text-xl font-bold text-primary-500 mb-4"
+                  whileHover={{ scale: 1.01 }}
+                >
+                  {highlight.title}
+                </motion.h3>
+                <motion.p 
+                  className="text-primary-500/80 leading-relaxed"
+                  whileHover={{ scale: 1.01 }}
+                >
+                  {highlight.description}
+                </motion.p>
+              </div>
             </InteractiveCard>
           ))}
         </div>
@@ -170,14 +221,22 @@ export function Solutions() {
             <InteractiveCard
               key={spec.title}
               delay={index * 0.1}
-              className="p-4 sm:p-6 rounded-xl bg-white backdrop-blur-sm border border-primary-100 group cursor-pointer hover:bg-gradient-to-br hover:from-gray-50 hover:to-primary-50"
+              className="bg-white"
             >
-              <h3 className="text-lg font-bold text-primary-500 mb-3">
-                {spec.title}
-              </h3>
-              <p className="text-primary-500/80 leading-relaxed">
-                {spec.description}
-              </p>
+              <div className="p-4 sm:p-6">
+                <motion.h3 
+                  className="text-lg font-bold text-primary-500 mb-3"
+                  whileHover={{ scale: 1.01 }}
+                >
+                  {spec.title}
+                </motion.h3>
+                <motion.p 
+                  className="text-primary-500/80 leading-relaxed"
+                  whileHover={{ scale: 1.01 }}
+                >
+                  {spec.description}
+                </motion.p>
+              </div>
             </InteractiveCard>
           ))}
         </div>
