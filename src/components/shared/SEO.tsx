@@ -17,6 +17,7 @@ export function SEO({
   noIndex = false
 }: SEOProps) {
   const ogImageUrl = ogImage || siteMetadata.openGraph.images[0].url
+  const fullImageUrl = ogImageUrl.startsWith('http') ? ogImageUrl : `${siteMetadata.siteUrl}${ogImageUrl}`
 
   return (
     <Helmet>
@@ -44,7 +45,7 @@ export function SEO({
       <meta property="og:url" content={canonical} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
+      <meta property="og:image" content={fullImageUrl} />
       <meta property="og:image:width" content={String(siteMetadata.openGraph.images[0].width)} />
       <meta property="og:image:height" content={String(siteMetadata.openGraph.images[0].height)} />
       <meta property="og:image:type" content={siteMetadata.openGraph.images[0].type} />
@@ -59,7 +60,7 @@ export function SEO({
       <meta name="twitter:creator" content={siteMetadata.twitter.creator} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
+      <meta name="twitter:image" content={fullImageUrl} />
       <meta name="twitter:image:alt" content={siteMetadata.openGraph.images[0].alt} />
 
       {/* Local business metadata */}
@@ -87,7 +88,7 @@ export function SEO({
           },
           image: {
             '@type': 'ImageObject',
-            url: `${siteMetadata.siteUrl}${ogImageUrl}`,
+            url: fullImageUrl,
             width: String(siteMetadata.openGraph.images[0].width),
             height: String(siteMetadata.openGraph.images[0].height)
           },
