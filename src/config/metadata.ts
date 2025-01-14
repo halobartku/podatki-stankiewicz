@@ -34,8 +34,8 @@ export const siteMetadata = {
     address: 'ul. KOWALSKA 8-9/D, 82-300 Elbląg',
     type: 'Jednoosobowa Działalność Gospodarcza',
     owner: 'JOLANTA STANKIEWICZ',
-    email: '', // Add company email when available
-    phone: '', // Add company phone when available
+    email: 'biuro@podatkistankiewicz.pl'
+    phone: '+48 786 131 260'
     registration: {
       nip: '5781419439',
       regon: '387861759',
