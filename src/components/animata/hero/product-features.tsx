@@ -107,7 +107,7 @@ export default function ProductFeatures() {
           <img 
             {...{
               src: logo,
-              alt: "Kankot Logo",
+              alt: "Podatki Stankiewicz",
               className: "w-full h-auto",
               loading: "eager"
             } as DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>}

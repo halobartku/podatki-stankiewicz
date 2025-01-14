@@ -17,7 +17,9 @@ export function SEO({
   noIndex = false
 }: SEOProps) {
   const ogImageUrl = ogImage || siteMetadata.openGraph.images[0].url
-  const fullImageUrl = ogImageUrl.startsWith('http') ? ogImageUrl : `${siteMetadata.siteUrl}${ogImageUrl}`
+  const fullImageUrl = ogImageUrl.startsWith('http') 
+    ? ogImageUrl 
+    : `${siteMetadata.siteUrl}${encodeURI(ogImageUrl)}`
 
   return (
     <Helmet>
