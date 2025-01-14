@@ -100,10 +100,10 @@ export const siteMetadata = {
     siteName: 'Kancelaria Podatkowa Jolanta Stankiewicz',
     images: [
       {
-        url: '/images/og-image.png', // Update path to properly generated OG image
+        url: '/KANCELARIA PODATKOWA JOLANTA STANKIEWICZ.png',
         width: 1200,
         height: 630,
-        alt: 'Kancelaria Podatkowa Jolanta Stankiewicz - Profesjonalne usługi księgowe w Elblągu',
+        alt: 'Logo Kancelarii Podatkowej Jolanta Stankiewicz - złote logo z symbolem wzrostu finansowego na białym tle z niebieskim akcentem graficznym',
         type: 'image/png'
       }
     ]
