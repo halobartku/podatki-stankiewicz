@@ -34,8 +34,8 @@ export const siteMetadata = {
     address: 'ul. KOWALSKA 8-9/D, 82-300 Elbląg',
     type: 'Jednoosobowa Działalność Gospodarcza',
     owner: 'JOLANTA STANKIEWICZ',
-    email: 'biuro@podatkistankiewicz.pl'
-    phone: '+48 786 131 260'
+    email: 'biuro@podatkistankiewicz.pl',
+    phone: '+48 786 131 260',
     registration: {
       nip: '5781419439',
       regon: '387861759',
@@ -100,7 +100,7 @@ export const siteMetadata = {
     siteName: 'Kancelaria Podatkowa Jolanta Stankiewicz',
     images: [
       {
-        url: '/KANCELARIA PODATKOWA JOLANTA STANKIEWICZ.png',
+        url: '/KANCELARIA%20PODATKOWA%20JOLANTA%20STANKIEWICZ.png',
         width: 1200,
         height: 630,
         alt: 'Logo Kancelarii Podatkowej Jolanta Stankiewicz - złote logo z symbolem wzrostu finansowego na białym tle z niebieskim akcentem graficznym',
