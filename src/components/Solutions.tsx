@@ -135,11 +135,11 @@ export function Solutions() {
     offset: ["start end", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [50, 0, 0, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.5, 1, 1, 0.5]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [20, 0, 0, -20]);
 
-  const springConfig = { stiffness: 50, damping: 20, restDelta: 0.01 };
+  const springConfig = { stiffness: 40, damping: 15, restDelta: 0.01 };
   const springOpacity = useSpring(opacity, springConfig);
   const springScale = useSpring(scale, springConfig);
   const springY = useSpring(y, springConfig);
@@ -147,7 +147,7 @@ export function Solutions() {
   return (
     <motion.div 
       ref={containerRef}
-      className="relative min-h-screen overflow-visible"
+      className="relative min-h-[100dvh] overflow-x-hidden"
       style={{
         opacity: springOpacity,
         scale: springScale,
@@ -159,8 +159,8 @@ export function Solutions() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.3 }}
+          className="text-center mb-8"
         >
           <motion.h2 
             className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4 cursor-pointer px-4"
@@ -174,21 +174,21 @@ export function Solutions() {
             className="text-base sm:text-lg text-primary-500/80 max-w-3xl mx-auto font-medium px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
+            transition={{ delay: 0.1, duration: 0.3 }}
           >
             40 lat praktyki w Urzędzie Skarbowym i sektorze prywatnym
           </motion.p>
         </motion.div>
 
         {/* Expertise Highlights Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 mb-12 sm:mb-16 px-2 sm:px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 px-2 sm:px-4">
           {expertiseHighlights.map((highlight, index) => (
             <InteractiveCard
               key={highlight.title}
               delay={index * 0.1}
               className={highlight.color}
             >
-              <div className="p-6 sm:p-8">
+              <div className="p-6">
                 {highlight.subtitle && (
                   <motion.p 
                     className="text-primary-400 font-medium mb-2"
@@ -198,7 +198,7 @@ export function Solutions() {
                   </motion.p>
                 )}
                 <motion.h3 
-                  className="text-xl font-bold text-primary-500 mb-4"
+                  className="text-xl font-bold text-primary-500 mb-3"
                   whileHover={{ scale: 1.01 }}
                 >
                   {highlight.title}
