@@ -65,42 +65,12 @@ function MainContent() {
           });
         }
       } else {
-        // Use window.scrollTo for consistent mobile scrolling
-        const sectionTop = section.offsetTop;
-        window.scrollTo({
-          top: sectionTop,
-          behavior: 'smooth'
-        });
+        // Simple scroll to section for mobile
+        section.scrollIntoView({ behavior: 'smooth' });
       }
       setCurrentSection(id)
     }
   }
-
-  // Simplified scroll handling for mobile
-  useEffect(() => {
-    if (window.innerWidth >= 1024) return;
-
-    const handleScroll = () => {
-      const viewportMiddle = window.scrollY + (window.innerHeight / 2);
-      
-      sectionsRef.current.forEach((section) => {
-        if (!section) return;
-        const rect = section.getBoundingClientRect();
-        const sectionMiddle = rect.top + (rect.height / 2);
-        
-        // Only update section when it's near the middle of the viewport
-        if (Math.abs(sectionMiddle) < window.innerHeight * 0.3) {
-          const id = section.getAttribute('id');
-          if (id && id !== currentSection) {
-            setCurrentSection(id);
-          }
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentSection]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -273,9 +243,11 @@ function MainContent() {
         
         <main 
           ref={containerRef}
-          className="relative z-10 flex-1 w-full overscroll-none
-                     lg:flex lg:snap-x lg:snap-mandatory
-                     md:block"
+          className={cn(
+            "relative z-10 flex-1 w-full",
+            "lg:overscroll-none lg:flex lg:snap-x lg:snap-mandatory",
+            "block"
+          )}
         >
           {navigationSections.map((section, index) => (
             <section 
@@ -285,9 +257,8 @@ function MainContent() {
               }}
               id={section.id}
               className={cn(
-                "relative w-full overscroll-none",
-                "lg:snap-start lg:min-w-full lg:w-screen lg:h-screen lg:flex-shrink-0",
-                "md:min-h-screen",
+                "relative w-full min-h-screen",
+                "lg:overscroll-none lg:snap-start lg:min-w-full lg:w-screen lg:h-screen lg:flex-shrink-0",
                 index === navigationSections.length - 1 ? 'pb-safe' : ''
               )}
             >
