@@ -76,47 +76,31 @@ function MainContent() {
     }
   }
 
-  // Centralized scroll handling for mobile
+  // Simplified scroll handling for mobile
   useEffect(() => {
     if (window.innerWidth >= 1024) return;
 
-    let lastScrollTime = Date.now();
-    const SCROLL_COOLDOWN = 150; // 150ms cooldown between scroll updates
-
     const handleScroll = () => {
-      const now = Date.now();
-      if (now - lastScrollTime < SCROLL_COOLDOWN) return;
-
       const viewportMiddle = window.scrollY + (window.innerHeight / 2);
-      let closestSection: HTMLElement | null = null;
-      let closestDistance = Infinity;
-
-      (sectionsRef.current as Array<HTMLElement | null>).forEach((section) => {
+      
+      sectionsRef.current.forEach((section) => {
         if (!section) return;
         const rect = section.getBoundingClientRect();
-        const sectionMiddle = section.offsetTop + (rect.height / 2);
-        const distance = Math.abs(viewportMiddle - sectionMiddle);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestSection = section;
+        const sectionMiddle = rect.top + (rect.height / 2);
+        
+        // Only update section when it's near the middle of the viewport
+        if (Math.abs(sectionMiddle) < window.innerHeight * 0.3) {
+          const id = section.getAttribute('id');
+          if (id && id !== currentSection) {
+            setCurrentSection(id);
+          }
         }
       });
-
-      if (closestSection && !isScrolling) {
-        const id = (closestSection as HTMLElement).getAttribute('id');
-        if (id && id !== currentSection) {
-          requestAnimationFrame(() => {
-            setCurrentSection(id);
-            lastScrollTime = now;
-          });
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentSection, isScrolling]);
+  }, [currentSection]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -162,10 +146,11 @@ function MainContent() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [currentSection, isScrolling])
 
+  // Desktop-only wheel event handling
   useEffect(() => {
+    if (window.innerWidth < 1024) return;
+
     const handleWheel = (e: WheelEvent) => {
-      if (window.innerWidth < 1024) return
-      
       if (e.target instanceof Element) {
         const targetElement = e.target as Element
         if (
