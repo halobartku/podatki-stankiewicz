@@ -131,7 +131,7 @@ const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCar
       {/* Mobile version without animations */}
       <div
         className={cn(
-          "relative rounded-2xl border border-primary-100/50 overflow-hidden block sm:hidden touch-none",
+          "relative rounded-2xl border border-primary-100/50 overflow-hidden block sm:hidden",
           className
         )}
       >
@@ -160,17 +160,19 @@ export function Solutions() {
   const springScale = useSpring(scale, springConfig);
   const springY = useSpring(y, springConfig);
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
   return (
     <motion.div 
       ref={containerRef}
-      className="relative min-h-[100dvh] overflow-x-hidden w-full max-w-[100vw]"
-      style={{
+      className="relative min-h-screen w-full"
+      style={isMobile ? {} : {
         opacity: springOpacity,
         scale: springScale,
         y: springY
       }}
     >
-      <div className="relative max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-12 w-full max-w-[100vw]">
+      <div className="relative max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -179,10 +181,12 @@ export function Solutions() {
           className="text-center mb-8"
         >
           <motion.h2 
-            className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4 cursor-pointer px-4"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4 px-4"
+            {...(!isMobile && {
+              whileHover: { scale: 1.02 },
+              whileTap: { scale: 0.98 },
+              transition: { type: "spring", stiffness: 200, damping: 20 }
+            })}
           >
             Doświadczenie, Któremu Możesz Zaufać
           </motion.h2>
@@ -206,22 +210,28 @@ export function Solutions() {
             >
               <div className="p-6">
                 {highlight.subtitle && (
-                  <motion.p 
-                    className="text-primary-400 font-medium mb-2"
-                    whileHover={{ scale: 1.01 }}
-                  >
+                <motion.p 
+                  className="text-primary-400 font-medium mb-2"
+                  {...(!isMobile && {
+                    whileHover: { scale: 1.01 }
+                  })}
+                >
                     {highlight.subtitle}
                   </motion.p>
                 )}
                 <motion.h3 
                   className="text-xl font-bold text-primary-500 mb-3"
-                  whileHover={{ scale: 1.01 }}
+                  {...(!isMobile && {
+                    whileHover: { scale: 1.01 }
+                  })}
                 >
                   {highlight.title}
                 </motion.h3>
                 <motion.p 
                   className="text-primary-500/80 leading-relaxed"
-                  whileHover={{ scale: 1.01 }}
+                  {...(!isMobile && {
+                    whileHover: { scale: 1.01 }
+                  })}
                 >
                   {highlight.description}
                 </motion.p>

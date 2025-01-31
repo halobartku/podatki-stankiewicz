@@ -13,36 +13,31 @@ body {
 
 /* Mobile viewport handling */
 @media (max-width: 1023px) {
-  html, body {
+  body {
     overflow-x: hidden;
-    position: relative;
     width: 100%;
-    max-width: 100vw;
   }
 
   #root {
     width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
   }
 
   main {
     width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
+    position: relative;
   }
 
   section {
-    min-height: 100dvh;
+    min-height: 100vh;
     width: 100%;
-    max-width: 100vw;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   /* Prevent content overflow */
   [class*="grid"] {
     padding: 0 1rem;
     width: 100%;
-    max-width: 100%;
   }
   
   img, video, iframe {

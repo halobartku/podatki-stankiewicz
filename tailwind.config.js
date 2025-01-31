@@ -40,6 +40,9 @@ export default {
       backgroundColor: {
         'gradient-primary': 'linear-gradient(45deg, #000080, #FFD700)',
       },
+      rotate: {
+        'y-180': '180deg',
+      },
     },
   },
   plugins: [],

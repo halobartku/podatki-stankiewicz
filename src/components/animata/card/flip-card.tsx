@@ -11,6 +11,8 @@ interface FlipCardProps extends HTMLAttributes<HTMLDivElement> {
   rotate?: "x" | "y";
 }
 
+import { useState } from "react";
+
 export function FlipCard({
   image,
   title,
@@ -26,6 +28,7 @@ export function FlipCard({
     y: ["group-hover:[transform:rotateY(180deg)]", "[transform:rotateY(180deg)]"],
   };
   const self = rotationClass[rotate];
+  const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <>
@@ -92,36 +95,43 @@ export function FlipCard({
       {/* Mobile Version */}
       <div 
         className={cn(
-          "relative w-full aspect-[4/3] block sm:hidden",
+          "group relative w-full aspect-[4/3] block sm:hidden mb-4",
+          "[perspective:1000px]",
           className
         )} 
+        onClick={() => setIsFlipped(!isFlipped)}
         {...props}
       >
-        <div 
-          className="h-full w-full rounded-2xl"
-          onClick={(e) => {
-            const target = e.currentTarget;
-            const overlay = target.querySelector('.info-overlay');
-            if (overlay) {
-              overlay.classList.toggle('opacity-0');
-              overlay.classList.toggle('opacity-100');
-            }
-          }}
+        <div
+          className={cn(
+            "relative h-full w-full rounded-2xl transition-all duration-500",
+            "[transform-style:preserve-3d]",
+            isFlipped ? self[0] : ""
+          )}
         >
-          <img
-            {...{
-              src: image,
-              alt: title,
-              className: "h-full w-full rounded-2xl object-cover"
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/70 via-primary-500/50 to-primary-400/30 rounded-2xl" />
-          <div className="absolute bottom-4 left-4 text-xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-            {title}
+          {/* Front */}
+          <div className="absolute h-full w-full [backface-visibility:hidden]">
+            <img
+              {...{
+                src: image,
+                alt: title,
+                className: "h-full w-full rounded-2xl object-cover"
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/70 via-primary-500/50 to-primary-400/30 rounded-2xl" />
+            <div className="absolute bottom-4 left-4 text-xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+              {title}
+            </div>
           </div>
-          
-          {/* Info overlay */}
-          <div className="info-overlay absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6 rounded-2xl opacity-0 transition-opacity duration-300">
+
+          {/* Back */}
+          <div
+            className={cn(
+              "absolute h-full w-full rounded-2xl bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6",
+              "text-gray-800 [backface-visibility:hidden] shadow-lg",
+              self[1]
+            )}
+          >
             <div className="flex flex-col h-full">
               <div className="flex items-center gap-3 mb-4">
                 {Icon && (

@@ -56,7 +56,7 @@ const expertiseAreas = [
 
 export function Expertise() {
   return (
-    <div className="relative min-h-screen py-12 overflow-x-hidden w-full max-w-[100vw]">
+    <div className="relative min-h-screen py-12 w-full">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 w-full">
         <div className="text-center">
           <h2 className="text-4xl font-bold tracking-tight text-primary-500 pb-2 leading-relaxed">
@@ -71,7 +71,7 @@ export function Expertise() {
           {expertiseAreas.map((area) => (
             <div
               key={area.title}
-              className="mx-auto w-full max-w-[350px] mb-3 sm:mb-0"
+              className="mx-auto w-full max-w-[350px] mb-6 sm:mb-0"
             >
               <FlipCard
                 title={area.title}

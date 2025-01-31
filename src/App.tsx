@@ -21,6 +21,7 @@ import Analytics from './components/Analytics'
 import type { NavItem } from './types'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import { BackgroundGradient } from './components/BackgroundGradient'
+import { cn } from './lib/utils'
 
 const navigationSections: NavItem[] = [
   { id: 'home', title: 'Strona Główna', label: 'Strona Główna', href: '#home', icon: Home },
@@ -32,7 +33,7 @@ const navigationSections: NavItem[] = [
 
 function MainContent() {
   const [currentSection, setCurrentSection] = useState('home')
-  const sectionsRef = useRef<(HTMLElement | null)[]>([])
+  const sectionsRef = useRef<Array<HTMLElement | null>>([])
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isScrolling, setIsScrolling] = useState(false)
@@ -64,11 +65,58 @@ function MainContent() {
           });
         }
       } else {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // Use window.scrollTo for consistent mobile scrolling
+        const sectionTop = section.offsetTop;
+        window.scrollTo({
+          top: sectionTop,
+          behavior: 'smooth'
+        });
       }
       setCurrentSection(id)
     }
   }
+
+  // Centralized scroll handling for mobile
+  useEffect(() => {
+    if (window.innerWidth >= 1024) return;
+
+    let lastScrollTime = Date.now();
+    const SCROLL_COOLDOWN = 150; // 150ms cooldown between scroll updates
+
+    const handleScroll = () => {
+      const now = Date.now();
+      if (now - lastScrollTime < SCROLL_COOLDOWN) return;
+
+      const viewportMiddle = window.scrollY + (window.innerHeight / 2);
+      let closestSection: HTMLElement | null = null;
+      let closestDistance = Infinity;
+
+      (sectionsRef.current as Array<HTMLElement | null>).forEach((section) => {
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const sectionMiddle = section.offsetTop + (rect.height / 2);
+        const distance = Math.abs(viewportMiddle - sectionMiddle);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestSection = section;
+        }
+      });
+
+      if (closestSection && !isScrolling) {
+        const id = (closestSection as HTMLElement).getAttribute('id');
+        if (id && id !== currentSection) {
+          requestAnimationFrame(() => {
+            setCurrentSection(id);
+            lastScrollTime = now;
+          });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentSection, isScrolling]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -200,47 +248,25 @@ function MainContent() {
     }
   }, [currentSection, isScrolling])
 
+  // Desktop-only intersection observer
   useEffect(() => {
-    const isMobile = window.innerWidth < 1024;
-    let lastUpdateTime = Date.now();
-    const UPDATE_COOLDOWN = 100; // 100ms cooldown between updates
+    if (window.innerWidth < 1024) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const now = Date.now();
-        if (isMobile && now - lastUpdateTime < UPDATE_COOLDOWN) {
-          return;
-        }
+        const visibleEntries = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-        // Get all visible sections and their visibility ratios
-        const visibleSections = entries
-          .filter(entry => entry.isIntersecting && entry.intersectionRatio > 0.1)
-          .sort((a, b) => {
-            // Calculate distance from center of viewport
-            const aRect = a.boundingClientRect;
-            const bRect = b.boundingClientRect;
-            const viewportHeight = window.innerHeight;
-            const aDistanceFromCenter = Math.abs((aRect.top + aRect.bottom) / 2 - viewportHeight / 2);
-            const bDistanceFromCenter = Math.abs((bRect.top + bRect.bottom) / 2 - viewportHeight / 2);
-            
-            // Prioritize sections closer to center
-            return aDistanceFromCenter - bDistanceFromCenter;
-          });
-
-        if (visibleSections.length > 0) {
-          const mostCenteredSection = visibleSections[0];
-          const id = mostCenteredSection.target.getAttribute('id');
-          
-          if (id && !isScrolling) {
-            setCurrentSection(id);
-            lastUpdateTime = now;
-          }
+        if (visibleEntries.length > 0 && !isScrolling) {
+          const id = visibleEntries[0].target.getAttribute('id');
+          if (id) setCurrentSection(id);
         }
       },
       {
         root: null,
-        rootMargin: isMobile ? '-10% 0px' : '-45% 0px',
-        threshold: isMobile ? [0.1, 0.2, 0.3, 0.4, 0.5] : 0.5
+        rootMargin: '-45% 0px',
+        threshold: 0.5
       }
     );
 
@@ -262,21 +288,23 @@ function MainContent() {
         
         <main 
           ref={containerRef}
-          className="relative z-10 flex-1 w-full
+          className="relative z-10 flex-1 w-full overscroll-none
                      lg:flex lg:snap-x lg:snap-mandatory
                      md:block"
         >
           {navigationSections.map((section, index) => (
             <section 
               key={section.id}
-              ref={(el) => (sectionsRef.current[index] = el)} 
+              ref={(el) => {
+                if (el) sectionsRef.current[index] = el;
+              }}
               id={section.id}
-              className={`
-                relative w-full
-                lg:snap-start lg:min-w-full lg:w-screen lg:h-screen lg:flex-shrink-0
-                md:min-h-screen
-                ${index === navigationSections.length - 1 ? 'pb-safe' : ''}
-              `}
+              className={cn(
+                "relative w-full overscroll-none",
+                "lg:snap-start lg:min-w-full lg:w-screen lg:h-screen lg:flex-shrink-0",
+                "md:min-h-screen",
+                index === navigationSections.length - 1 ? 'pb-safe' : ''
+              )}
             >
               <div className="relative z-10 w-full h-full flex flex-col">
                 <div className="flex-1">

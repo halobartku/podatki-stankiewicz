@@ -108,7 +108,7 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
       </motion.div>
       {/* Mobile version without animations */}
       <div
-        className="relative rounded-2xl shadow-lg overflow-hidden flex sm:hidden h-[200px] mb-4 touch-none"
+        className="relative rounded-2xl shadow-lg overflow-hidden flex sm:hidden h-[200px] mb-4"
       >
         {content}
       </div>
@@ -129,9 +129,9 @@ export default function ProductFeatures() {
   };
 
   return (
-    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-[100dvh]">
+    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-screen">
       {/* Content */}
-      <div className="relative w-full max-w-[100vw] overflow-x-hidden">
+      <div className="relative w-full">
         <div className="absolute top-0 left-4 sm:left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]">
           <img 
             {...{
