@@ -97,7 +97,17 @@ export function FlipCard({
         )} 
         {...props}
       >
-        <div className="h-full w-full rounded-2xl">
+        <div 
+          className="h-full w-full rounded-2xl"
+          onClick={(e) => {
+            const target = e.currentTarget;
+            const overlay = target.querySelector('.info-overlay');
+            if (overlay) {
+              overlay.classList.toggle('opacity-0');
+              overlay.classList.toggle('opacity-100');
+            }
+          }}
+        >
           <img
             {...{
               src: image,
@@ -111,7 +121,7 @@ export function FlipCard({
           </div>
           
           {/* Info overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6 rounded-2xl opacity-0 active:opacity-100 transition-opacity duration-300">
+          <div className="info-overlay absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6 rounded-2xl opacity-0 transition-opacity duration-300">
             <div className="flex flex-col h-full">
               <div className="flex items-center gap-3 mb-4">
                 {Icon && (

@@ -33,22 +33,44 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
   }
 
   React.useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
+    const isMobile = window.innerWidth < 1024;
+    if (isOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset'
+      // Only reset overflow if we're on mobile
+      if (isMobile) {
+        document.body.style.overflow = '';
+      }
     }
     return () => {
-      document.body.style.overflow = 'unset'
+      if (isMobile) {
+        document.body.style.overflow = '';
+      }
     }
   }, [isOpen])
+
+  // Update navigation state when scrolling on mobile
+  React.useEffect(() => {
+    const isMobile = window.innerWidth < 1024;
+    if (!isMobile) return;
+
+    const handleScroll = () => {
+      // Close mobile menu when scrolling
+      if (isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isOpen]);
 
   return (
     <>
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 right-4 z-[60] p-3 rounded-xl bg-primary-500 text-white shadow-lg hover:bg-primary-600 transition-colors"
+        className="lg:hidden fixed top-4 right-4 z-[60] p-3 rounded-xl bg-primary-500 text-white shadow-lg hover:bg-primary-600 transition-colors touch-none"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -62,7 +84,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm lg:hidden touch-none"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -70,7 +92,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-white shadow-xl overflow-hidden"
+              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-white shadow-xl overflow-hidden touch-none"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex flex-col h-full">

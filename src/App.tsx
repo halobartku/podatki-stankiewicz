@@ -201,34 +201,59 @@ function MainContent() {
   }, [currentSection, isScrolling])
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 1024;
+    let lastUpdateTime = Date.now();
+    const UPDATE_COOLDOWN = 100; // 100ms cooldown between updates
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id')
-            if (id && !isScrolling) {
-              setCurrentSection(id)
-            }
+        const now = Date.now();
+        if (isMobile && now - lastUpdateTime < UPDATE_COOLDOWN) {
+          return;
+        }
+
+        // Get all visible sections and their visibility ratios
+        const visibleSections = entries
+          .filter(entry => entry.isIntersecting && entry.intersectionRatio > 0.1)
+          .sort((a, b) => {
+            // Calculate distance from center of viewport
+            const aRect = a.boundingClientRect;
+            const bRect = b.boundingClientRect;
+            const viewportHeight = window.innerHeight;
+            const aDistanceFromCenter = Math.abs((aRect.top + aRect.bottom) / 2 - viewportHeight / 2);
+            const bDistanceFromCenter = Math.abs((bRect.top + bRect.bottom) / 2 - viewportHeight / 2);
+            
+            // Prioritize sections closer to center
+            return aDistanceFromCenter - bDistanceFromCenter;
+          });
+
+        if (visibleSections.length > 0) {
+          const mostCenteredSection = visibleSections[0];
+          const id = mostCenteredSection.target.getAttribute('id');
+          
+          if (id && !isScrolling) {
+            setCurrentSection(id);
+            lastUpdateTime = now;
           }
-        })
+        }
       },
       {
         root: null,
-        rootMargin: window.innerWidth >= 1024 ? '-45% 0px' : '-20% 0px',
-        threshold: window.innerWidth >= 1024 ? 0.5 : 0.2
+        rootMargin: isMobile ? '-10% 0px' : '-45% 0px',
+        threshold: isMobile ? [0.1, 0.2, 0.3, 0.4, 0.5] : 0.5
       }
-    )
+    );
 
     sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section)
-    })
+      if (section) observer.observe(section);
+    });
 
-    return () => observer.disconnect()
-  }, [isScrolling])
+    return () => observer.disconnect();
+  }, [isScrolling]);
 
   return (
-    <BackgroundGradient className="min-h-screen overscroll-none" currentSection={currentSection}>
-      <div className="flex flex-col min-h-screen overscroll-none">
+    <BackgroundGradient className="min-h-screen" currentSection={currentSection}>
+      <div className="flex flex-col min-h-screen">
         <Navigation 
           sections={navigationSections}
           currentSection={currentSection}
@@ -237,7 +262,7 @@ function MainContent() {
         
         <main 
           ref={containerRef}
-          className="relative z-10 flex-1 w-full overscroll-none
+          className="relative z-10 flex-1 w-full
                      lg:flex lg:snap-x lg:snap-mandatory
                      md:block"
         >

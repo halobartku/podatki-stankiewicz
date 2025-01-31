@@ -129,10 +129,10 @@ export default function ProductFeatures() {
   };
 
   return (
-    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-[100dvh] overflow-hidden">
+    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-[100dvh]">
       {/* Content */}
-      <div className="relative w-full">
-        <div className="absolute top-0 left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]">
+      <div className="relative w-full max-w-[100vw] overflow-x-hidden">
+        <div className="absolute top-0 left-4 sm:left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]">
           <img 
             {...{
               src: logo,
@@ -163,9 +163,9 @@ export default function ProductFeatures() {
           </div>
         </div>
 
-        <div className="mt-4 flex w-full justify-center px-4">
-          <div className="relative w-full max-w-full px-4 mx-auto mt-4 md:max-w-7xl sm:px-6 lg:px-8">
-            <div className="relative flex flex-col items-center justify-center gap-6 pt-4 lg:flex-row lg:pt-8">
+        <div className="mt-4 flex w-full justify-center">
+          <div className="relative w-full max-w-full mx-auto mt-4 md:max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex flex-col items-center justify-center gap-4 sm:gap-6 pt-4 lg:flex-row lg:pt-8">
               <FeatureCard
                 feature={{
                   category: "Księgowość",

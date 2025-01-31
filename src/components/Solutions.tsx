@@ -72,59 +72,75 @@ const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCar
   }
 
   return (
-    <motion.div
-      className={cn(
-        "relative rounded-2xl border border-primary-100/50 cursor-pointer overflow-hidden perspective-[1000px]",
-        "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-300",
-        "hover:before:bg-primary-500/5",
-        "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_4px_16px_rgba(0,0,0,0.08)] after:transition-all after:duration-300 after:ease-out",
-        "hover:after:opacity-100 hover:after:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
-        "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-105",
-        className
-      )}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, delay }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        x.set(0.5);
-        y.set(0.5);
-      }}
-      whileHover={{ 
-        scale: 1.01,
-        transition: { 
-          type: "spring",
-          stiffness: 200,
-          damping: 20
-        }
-      }}
-    >
-      <div className={`absolute inset-0 bg-gradient-to-br ${className}`} />
-      <div 
-        className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
-      />
-      <motion.div 
-        className="relative z-30"
-        animate={{ 
-          y: isHovered ? -1 : 0,
-          scale: isHovered ? 1.005 : 1
+    <>
+      {/* Desktop version with animations */}
+      <motion.div
+        className={cn(
+          "relative rounded-2xl border border-primary-100/50 cursor-pointer overflow-hidden perspective-[1000px] hidden sm:block",
+          "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-300",
+          "hover:before:bg-primary-500/5",
+          "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_4px_16px_rgba(0,0,0,0.08)] after:transition-all after:duration-300 after:ease-out",
+          "hover:after:opacity-100 hover:after:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
+          "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-105",
+          className
+        )}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
         }}
-        transition={{ 
-          type: "spring",
-          stiffness: 200,
-          damping: 20
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          x.set(0.5);
+          y.set(0.5);
+        }}
+        whileHover={{ 
+          scale: 1.01,
+          transition: { 
+            type: "spring",
+            stiffness: 200,
+            damping: 20
+          }
         }}
       >
-        {children}
+        <div className={`absolute inset-0 bg-gradient-to-br ${className}`} />
+        <div 
+          className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
+        />
+        <motion.div 
+          className="relative z-30"
+          animate={{ 
+            y: isHovered ? -1 : 0,
+            scale: isHovered ? 1.005 : 1
+          }}
+          transition={{ 
+            type: "spring",
+            stiffness: 200,
+            damping: 20
+          }}
+        >
+          {children}
+        </motion.div>
       </motion.div>
-    </motion.div>
+
+      {/* Mobile version without animations */}
+      <div
+        className={cn(
+          "relative rounded-2xl border border-primary-100/50 overflow-hidden block sm:hidden touch-none",
+          className
+        )}
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${className}`} />
+        <div className="relative z-30">
+          {children}
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -147,14 +163,14 @@ export function Solutions() {
   return (
     <motion.div 
       ref={containerRef}
-      className="relative min-h-[100dvh] overflow-x-hidden"
+      className="relative min-h-[100dvh] overflow-x-hidden w-full max-w-[100vw]"
       style={{
         opacity: springOpacity,
         scale: springScale,
         y: springY
       }}
     >
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-12 w-full max-w-[100vw]">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -181,7 +197,7 @@ export function Solutions() {
         </motion.div>
 
         {/* Expertise Highlights Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 px-2 sm:px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 px-2 sm:px-4">
           {expertiseHighlights.map((highlight, index) => (
             <InteractiveCard
               key={highlight.title}
@@ -215,7 +231,7 @@ export function Solutions() {
         </div>
 
         {/* Specializations Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-2 sm:px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 px-2 sm:px-4">
           {specializations.map((spec, index) => (
             <InteractiveCard
               key={spec.title}
