@@ -13,18 +13,28 @@ body {
 
 /* Mobile viewport handling */
 @media (max-width: 1023px) {
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
   body {
     overflow-x: hidden;
     width: 100%;
+    position: relative;
   }
 
   #root {
     width: 100%;
+    overflow-x: hidden;
+    position: relative;
   }
 
   main {
     width: 100%;
     position: relative;
+    overflow-x: hidden;
   }
 
   section {
@@ -38,11 +48,18 @@ body {
   [class*="grid"] {
     padding: 0 1rem;
     width: 100%;
+    max-width: 100%;
   }
   
   img, video, iframe {
     max-width: 100% !important;
     height: auto !important;
+  }
+
+  /* Fix for mobile menu */
+  .fixed {
+    width: auto;
+    right: 0;
   }
 }
 

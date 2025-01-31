@@ -92,7 +92,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-full max-w-[280px] bg-white shadow-xl overflow-hidden touch-none"
+              className="fixed inset-y-0 left-0 w-[280px] bg-white shadow-xl overflow-hidden touch-none"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex flex-col h-full">
