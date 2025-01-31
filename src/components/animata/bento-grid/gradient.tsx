@@ -16,9 +16,10 @@ export default function ServiceGrid({ services }: ServiceGridProps) {
           transition={{ duration: 0.5, delay: index * 0.1 }}
           key={service.title}
           className={cn(
-            "group relative overflow-hidden rounded-3xl",
+            "group relative overflow-hidden rounded-3xl max-w-full",
             "bg-white shadow-sm transition-all duration-300",
-            "hover:shadow-lg hover:bg-gradient-to-br from-gray-50 to-primary-50/30"
+            "hover:shadow-lg hover:bg-gradient-to-br from-gray-50 to-primary-50/30",
+            "box-border" 
           )}
         >
           <div className="p-6">
@@ -31,7 +32,7 @@ export default function ServiceGrid({ services }: ServiceGridProps) {
               </h3>
             </div>
             
-            <p className="text-sm text-primary-500/80">
+            <p className="text-sm text-primary-500/80 break-words whitespace-normal">
               {service.description}
             </p>
           </div>

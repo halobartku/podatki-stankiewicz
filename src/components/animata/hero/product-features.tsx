@@ -22,13 +22,13 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
 
-  const rotateX = useSpring(useTransform(y, [0, 1], [7, -7]), {
-    stiffness: 300,
-    damping: 30
+  const rotateX = useSpring(useTransform(y, [0, 1], [5, -5]), {
+    stiffness: 100,
+    damping: 20
   });
-  const rotateY = useSpring(useTransform(x, [0, 1], [-7, 7]), {
-    stiffness: 300,
-    damping: 30
+  const rotateY = useSpring(useTransform(x, [0, 1], [-5, 5]), {
+    stiffness: 100,
+    damping: 20
   });
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
@@ -71,11 +71,11 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
       <motion.div
         className={cn(
           "relative rounded-2xl shadow-lg cursor-pointer overflow-hidden perspective-[1000px]",
-          "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-500",
+          "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-300",
           "hover:before:bg-primary-500/5",
-          "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_8px_32px_rgba(0,0,0,0.12)] after:transition-all after:duration-500 after:ease-out",
-          "hover:after:opacity-100 hover:after:shadow-[0_16px_48px_rgba(0,0,0,0.18)]",
-          "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-110",
+          "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_4px_16px_rgba(0,0,0,0.08)] after:transition-all after:duration-300 after:ease-out",
+          "hover:after:opacity-100 hover:after:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
+          "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-105",
           "hidden sm:flex"
         )}
         style={{
@@ -91,25 +91,30 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
           y.set(0.5);
         }}
         whileHover={{ 
-          scale: 1.02,
-          z: 20,
+          scale: 1.01,
           transition: { 
             type: "spring",
-            stiffness: 400,
-            damping: 25
+            stiffness: 200,
+            damping: 20
           }
         }}
         {...props}
       >
         {content}
         <div 
-          className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-[800ms] ease-in-out will-change-transform"
+          className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
         />
       </motion.div>
       <motion.div
-        initial={{ y: 100 }}
-        whileInView={{ y: 0, transition: { duration: 0.5 } }}
-        className="relative rounded-2xl shadow-lg cursor-pointer overflow-hidden flex sm:hidden"
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: 1,
+          transition: { 
+            duration: 0.3,
+            delay: 0.1
+          }
+        }}
+        className="relative rounded-2xl shadow-lg cursor-pointer overflow-hidden flex sm:hidden h-[280px]"
       >
         {content}
       </motion.div>
@@ -119,8 +124,8 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
 
 export default function ProductFeatures() {
   const cardWidth = 64 * 4;
-  const angle = 6;
-  const yOffset = 30;
+  const angle = 4;
+  const yOffset = 20;
 
   const handleGetStarted = () => {
     const expertiseSection = document.getElementById('expertise');
@@ -130,13 +135,13 @@ export default function ProductFeatures() {
   };
 
   return (
-    <section className="relative flex w-full h-full flex-col items-center gap-2 pt-0 pb-0 overflow-hidden">
+    <section className="relative flex w-full min-h-[100dvh] flex-col items-center gap-2 pt-16 pb-8 overflow-x-hidden">
       {/* Content */}
       <div className="relative w-full">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           className="absolute top-0 left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]"
         >
           <img 
@@ -150,9 +155,14 @@ export default function ProductFeatures() {
         </motion.div>
 
         <motion.header
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ 
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+            duration: 0.3 
+          }}
           className="flex max-w-2xl flex-col items-center gap-4 px-4 mt-16 mx-auto text-primary-500"
         >
           <div className="sm:mt-0 mt-12">
@@ -161,17 +171,23 @@ export default function ProductFeatures() {
         </motion.header>
 
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ 
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+            duration: 0.3,
+            delay: 0.1 
+          }}
           className="mt-4 flex justify-center"
         >
           <div className="flex flex-col items-center gap-2">
             <motion.button
               onClick={handleGetStarted}
               className="relative rounded-lg px-8 py-3 text-sm font-medium text-white overflow-hidden group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500"></div>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 transition-opacity duration-300"></div>
@@ -182,13 +198,19 @@ export default function ProductFeatures() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-6 flex w-full justify-center px-8"
+          transition={{ 
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+            duration: 0.3,
+            delay: 0.2 
+          }}
+          className="mt-4 flex w-full justify-center px-4"
         >
-          <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-            <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 pt-4 lg:pt-8">
+          <div className="relative w-full max-w-full px-4 mx-auto mt-4 md:max-w-7xl sm:px-6 lg:px-8">
+            <div className="relative flex flex-col items-center justify-center gap-6 pt-4 lg:flex-row lg:pt-8">
               <FeatureCard
                 feature={{
                   category: "Księgowość",
@@ -201,17 +223,17 @@ export default function ProductFeatures() {
                   y: yOffset,
                   opacity: 0,
                   rotate: 0,
-                  scale: 0.9,
+                  scale: 0.95,
                 }}
                 animate={{
                   x: yOffset,
-                  y: 10,
+                  y: 5,
                   opacity: 1,
-                  scale: 0.95,
+                  scale: 0.98,
                   rotate: -angle,
                   transition: {
                     type: "spring",
-                    stiffness: 100,
+                    stiffness: 70,
                     damping: 20,
                     delay: 0.1,
                   },
@@ -228,16 +250,16 @@ export default function ProductFeatures() {
                   x: 0,
                   y: yOffset,
                   opacity: 0,
-                  scale: 0.9,
+                  scale: 0.95,
                 }}
                 animate={{
                   x: 0,
-                  y: -30,
+                  y: -20,
                   opacity: 1,
                   scale: 1,
                   transition: {
                     type: "spring",
-                    stiffness: 100,
+                    stiffness: 70,
                     damping: 20,
                     delay: 0.2,
                   },
@@ -255,17 +277,17 @@ export default function ProductFeatures() {
                   y: yOffset,
                   opacity: 0,
                   rotate: 0,
-                  scale: 0.9,
+                  scale: 0.95,
                 }}
                 animate={{
                   x: -yOffset,
-                  y: 10,
+                  y: 5,
                   opacity: 1,
-                  scale: 0.95,
+                  scale: 0.98,
                   rotate: angle,
                   transition: {
                     type: "spring",
-                    stiffness: 100,
+                    stiffness: 70,
                     damping: 20,
                     delay: 0.3,
                   },

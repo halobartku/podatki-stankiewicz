@@ -54,13 +54,13 @@ const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCar
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
 
-  const rotateX = useSpring(useTransform(y, [0, 1], [7, -7]), {
-    stiffness: 300,
-    damping: 30
+  const rotateX = useSpring(useTransform(y, [0, 1], [5, -5]), {
+    stiffness: 100,
+    damping: 20
   });
-  const rotateY = useSpring(useTransform(x, [0, 1], [-7, 7]), {
-    stiffness: 300,
-    damping: 30
+  const rotateY = useSpring(useTransform(x, [0, 1], [-5, 5]), {
+    stiffness: 100,
+    damping: 20
   });
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
@@ -75,11 +75,11 @@ const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCar
     <motion.div
       className={cn(
         "relative rounded-2xl border border-primary-100/50 cursor-pointer overflow-hidden perspective-[1000px]",
-        "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-500",
+        "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-300",
         "hover:before:bg-primary-500/5",
-        "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_8px_32px_rgba(0,0,0,0.12)] after:transition-all after:duration-500 after:ease-out",
-        "hover:after:opacity-100 hover:after:shadow-[0_16px_48px_rgba(0,0,0,0.18)]",
-        "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-110",
+        "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_4px_16px_rgba(0,0,0,0.08)] after:transition-all after:duration-300 after:ease-out",
+        "hover:after:opacity-100 hover:after:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
+        "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-105",
         className
       )}
       style={{
@@ -89,7 +89,7 @@ const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCar
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, delay }}
+      transition={{ duration: 0.3, delay }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
@@ -98,29 +98,28 @@ const InteractiveCard = ({ children, className = "", delay = 0 }: InteractiveCar
         y.set(0.5);
       }}
       whileHover={{ 
-        scale: 1.02,
-        z: 20,
+        scale: 1.01,
         transition: { 
           type: "spring",
-          stiffness: 400,
-          damping: 25
+          stiffness: 200,
+          damping: 20
         }
       }}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${className}`} />
       <div 
-        className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-[800ms] ease-in-out will-change-transform"
+        className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
       />
       <motion.div 
         className="relative z-30"
         animate={{ 
-          y: isHovered ? -2 : 0,
-          scale: isHovered ? 1.01 : 1
+          y: isHovered ? -1 : 0,
+          scale: isHovered ? 1.005 : 1
         }}
         transition={{ 
           type: "spring",
-          stiffness: 500,
-          damping: 30
+          stiffness: 200,
+          damping: 20
         }}
       >
         {children}
@@ -137,10 +136,10 @@ export function Solutions() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, -100]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [50, 0, 0, -50]);
 
-  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const springConfig = { stiffness: 50, damping: 20, restDelta: 0.01 };
   const springOpacity = useSpring(opacity, springConfig);
   const springScale = useSpring(scale, springConfig);
   const springY = useSpring(y, springConfig);
@@ -148,7 +147,7 @@ export function Solutions() {
   return (
     <motion.div 
       ref={containerRef}
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-screen overflow-visible"
       style={{
         opacity: springOpacity,
         scale: springScale,
@@ -160,14 +159,14 @@ export function Solutions() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           className="text-center mb-12"
         >
           <motion.h2 
             className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4 cursor-pointer px-4"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300, damping: 10 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
           >
             Doświadczenie, Któremu Możesz Zaufać
           </motion.h2>
@@ -175,7 +174,7 @@ export function Solutions() {
             className="text-base sm:text-lg text-primary-500/80 max-w-3xl mx-auto font-medium px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
           >
             40 lat praktyki w Urzędzie Skarbowym i sektorze prywatnym
           </motion.p>
