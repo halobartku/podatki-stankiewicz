@@ -56,13 +56,8 @@ const expertiseAreas = [
 
 export function Expertise() {
   return (
-    <div className="relative min-h-screen overflow-hidden py-12">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
+    <div className="relative min-h-screen py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-4xl font-bold tracking-tight text-primary-500 pb-2 leading-relaxed">
             Specjalizacje i Usługi
@@ -73,34 +68,22 @@ export function Expertise() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {expertiseAreas.map((area, index) => (
-            <motion.div
+          {expertiseAreas.map((area) => (
+            <div
               key={area.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: index * 0.1,
-                duration: 0.5,
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-              }}
-              className="mx-auto w-full max-w-[350px] transform hover:scale-105 transition-transform duration-300"
+              className="mx-auto w-full max-w-[350px] mb-4 sm:mb-0"
             >
-              <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary-200 to-primary-400 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
-                <FlipCard
-                  title={area.title}
-                  subtitle={area.subtitle}
-                  description={area.description}
-                  image={area.image}
-                  icon={area.icon}
-                />
-              </div>
-            </motion.div>
+              <FlipCard
+                title={area.title}
+                subtitle={area.subtitle}
+                description={area.description}
+                image={area.image}
+                icon={area.icon}
+              />
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

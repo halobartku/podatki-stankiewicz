@@ -68,6 +68,7 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
 
   return (
     <>
+      {/* Desktop version with animations */}
       <motion.div
         className={cn(
           "relative rounded-2xl shadow-lg cursor-pointer overflow-hidden perspective-[1000px]",
@@ -105,19 +106,12 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
           className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
         />
       </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ 
-          opacity: 1,
-          transition: { 
-            duration: 0.3,
-            delay: 0.1
-          }
-        }}
-        className="relative rounded-2xl shadow-lg cursor-pointer overflow-hidden flex sm:hidden h-[280px]"
+      {/* Mobile version without animations */}
+      <div
+        className="relative rounded-2xl shadow-lg overflow-hidden flex sm:hidden h-[200px] mb-4 touch-none"
       >
         {content}
-      </motion.div>
+      </div>
     </>
   );
 }
@@ -130,20 +124,15 @@ export default function ProductFeatures() {
   const handleGetStarted = () => {
     const expertiseSection = document.getElementById('expertise');
     if (expertiseSection) {
-      expertiseSection.scrollIntoView({ behavior: 'smooth' });
+      expertiseSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <section className="relative flex w-full min-h-[100dvh] flex-col items-center gap-2 pt-16 pb-8 overflow-x-hidden">
+    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-[100dvh] overflow-hidden">
       {/* Content */}
       <div className="relative w-full">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute top-0 left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]"
-        >
+        <div className="absolute top-0 left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]">
           <img 
             {...{
               src: logo,
@@ -152,63 +141,29 @@ export default function ProductFeatures() {
               loading: "eager"
             } as DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>}
           />
-        </motion.div>
+        </div>
 
-        <motion.header
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ 
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            duration: 0.3 
-          }}
-          className="flex max-w-2xl flex-col items-center gap-4 px-4 mt-16 mx-auto text-primary-500"
-        >
+        <div className="flex max-w-2xl flex-col items-center gap-4 px-4 mt-16 mx-auto text-primary-500">
           <div className="sm:mt-0 mt-12">
             <TextFlip />
           </div>
-        </motion.header>
+        </div>
 
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ 
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            duration: 0.3,
-            delay: 0.1 
-          }}
-          className="mt-4 flex justify-center"
-        >
+        <div className="mt-4 flex justify-center">
           <div className="flex flex-col items-center gap-2">
-            <motion.button
+            <button
               onClick={handleGetStarted}
               className="relative rounded-lg px-8 py-3 text-sm font-medium text-white overflow-hidden group"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500"></div>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 transition-opacity duration-300"></div>
               <span className="relative z-10">Dowiedz się więcej</span>
               <div className="absolute inset-0 border border-white/10 rounded-lg shadow-lg"></div>
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            duration: 0.3,
-            delay: 0.2 
-          }}
-          className="mt-4 flex w-full justify-center px-4"
-        >
+        <div className="mt-4 flex w-full justify-center px-4">
           <div className="relative w-full max-w-full px-4 mx-auto mt-4 md:max-w-7xl sm:px-6 lg:px-8">
             <div className="relative flex flex-col items-center justify-center gap-6 pt-4 lg:flex-row lg:pt-8">
               <FeatureCard
@@ -295,7 +250,7 @@ export default function ProductFeatures() {
               />
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

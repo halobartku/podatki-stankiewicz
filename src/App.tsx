@@ -53,9 +53,16 @@ function MainContent() {
   const handleNavigate = (id: string) => {
     const section = sectionsRef.current[navigationSections.findIndex(section => section.id === id)]
     if (section) {
-      const isDesktop = window.innerWidth >= 1024
-      if (isDesktop) {
-        section.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+      if (window.innerWidth >= 1024) {
+        const container = containerRef.current;
+        if (container) {
+          const sectionIndex = navigationSections.findIndex(section => section.id === id);
+          const scrollLeft = sectionIndex * window.innerWidth;
+          container.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+          });
+        }
       } else {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
@@ -198,17 +205,17 @@ function MainContent() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = sectionsRef.current.findIndex((ref) => ref === entry.target)
-            if (index !== -1) {
-              setCurrentSection(navigationSections[index].id)
+            const id = entry.target.getAttribute('id')
+            if (id && !isScrolling) {
+              setCurrentSection(id)
             }
           }
         })
       },
       {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.5,
+        rootMargin: window.innerWidth >= 1024 ? '-45% 0px' : '-20% 0px',
+        threshold: window.innerWidth >= 1024 ? 0.5 : 0.2
       }
     )
 
@@ -217,11 +224,11 @@ function MainContent() {
     })
 
     return () => observer.disconnect()
-  }, [])
+  }, [isScrolling])
 
   return (
-    <BackgroundGradient className="min-h-screen" currentSection={currentSection}>
-      <div className="flex flex-col min-h-screen">
+    <BackgroundGradient className="min-h-screen overscroll-none" currentSection={currentSection}>
+      <div className="flex flex-col min-h-screen overscroll-none">
         <Navigation 
           sections={navigationSections}
           currentSection={currentSection}
@@ -230,10 +237,9 @@ function MainContent() {
         
         <main 
           ref={containerRef}
-          className="relative z-10 flex-1 w-full
-                     lg:flex lg:overflow-x-auto lg:overflow-y-hidden lg:snap-x lg:snap-mandatory
-                     md:block md:overflow-visible hide-scrollbar"
-          style={{ scrollSnapType: 'x mandatory' }}
+          className="relative z-10 flex-1 w-full overscroll-none
+                     lg:flex lg:snap-x lg:snap-mandatory
+                     md:block"
         >
           {navigationSections.map((section, index) => (
             <section 
@@ -241,12 +247,11 @@ function MainContent() {
               ref={(el) => (sectionsRef.current[index] = el)} 
               id={section.id}
               className={`
-                relative
+                relative w-full
                 lg:snap-start lg:min-w-full lg:w-screen lg:h-screen lg:flex-shrink-0
-                md:min-h-screen md:w-full
+                md:min-h-screen
                 ${index === navigationSections.length - 1 ? 'pb-safe' : ''}
               `}
-              style={{ scrollSnapAlign: 'start' }}
             >
               <div className="relative z-10 w-full h-full flex flex-col">
                 <div className="flex-1">
