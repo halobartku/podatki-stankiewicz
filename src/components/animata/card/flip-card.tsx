@@ -96,11 +96,10 @@ export function FlipCard({
       <div 
         className={cn(
           "group relative w-full aspect-[4/3] block sm:hidden mb-4",
-          "[perspective:1000px] touch-none",
+          "[perspective:1000px]",
           className
         )} 
         onClick={() => setIsFlipped(!isFlipped)}
-        onTouchStart={(e) => e.preventDefault()}
         {...props}
       >
         <div

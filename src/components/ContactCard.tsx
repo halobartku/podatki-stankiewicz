@@ -94,11 +94,11 @@ export function ContactCard() {
                 <Clock className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="text-lg font-semibold text-primary-500 mb-3">Godziny otwarcia</h3>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                  <div className="flex flex-col space-y-1.5">
                     {businessHours.map((schedule) => (
-                      <div key={schedule.day} className="contents">
-                        <span className="text-primary-500/80 font-medium text-sm">{schedule.day}</span>
-                        <span className="text-primary-500/80 text-sm">{schedule.hours}</span>
+                      <div key={schedule.day} className="flex justify-between items-center w-full">
+                        <span className="text-primary-500/80 font-medium text-sm whitespace-nowrap">{schedule.day}</span>
+                        <span className="text-primary-500/80 text-sm ml-8">{schedule.hours}</span>
                       </div>
                     ))}
                   </div>
