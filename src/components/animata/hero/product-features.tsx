@@ -54,7 +54,7 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
         </small>
 
         <div className="flex-1" />
-        <div className="space-y-3 rounded-xl bg-primary-500/90 p-4 shadow-lg border border-white/10">
+        <div className="space-y-2 rounded-xl bg-primary-500/90 p-3 shadow-lg border border-white/10">
           <h3 className="text-base font-bold leading-tight text-white">
             {title}
           </h3>
@@ -112,7 +112,7 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
       )}
       {/* Mobile version without animations */}
       <div
-        className="relative rounded-2xl shadow-lg overflow-hidden flex sm:hidden h-[200px] mb-4"
+        className="relative rounded-2xl shadow-lg overflow-hidden flex sm:hidden h-[240px] mb-6 w-full"
       >
         {content}
       </div>
@@ -133,10 +133,14 @@ export default function ProductFeatures() {
   };
 
   return (
-    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-screen">
+    <section className="relative flex w-full flex-col items-center gap-2 pt-16 pb-8 min-h-[100dvh]">
       {/* Content */}
       <div className="relative w-full">
-        <div className="absolute top-0 left-4 sm:left-8 z-20 w-1/6 max-w-[200px] min-w-[120px]">
+        <div className={cn(
+          "absolute z-20",
+          "sm:w-1/6 sm:max-w-[200px] sm:min-w-[120px] sm:top-0 sm:left-8",
+          "w-[84px] h-[84px] -top-8 -left-2"
+        )}>
           <img 
             {...{
               src: logo,
@@ -148,7 +152,7 @@ export default function ProductFeatures() {
         </div>
 
         <div className="flex max-w-2xl flex-col items-center gap-4 px-4 mt-16 mx-auto text-primary-500">
-          <div className="sm:mt-0 mt-12">
+          <div className="sm:mt-0 mt-8">
             <TextFlip />
           </div>
         </div>
@@ -168,8 +172,8 @@ export default function ProductFeatures() {
         </div>
 
         <div className="mt-4 flex w-full justify-center">
-          <div className="relative w-full max-w-full mx-auto mt-4 md:max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex flex-col items-center justify-center gap-4 sm:gap-6 pt-4 lg:flex-row lg:pt-8">
+        <div className="relative w-full mx-auto mt-4 md:max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex flex-col items-center justify-center gap-8 sm:gap-6 pt-4 lg:flex-row lg:pt-8">
               <FeatureCard
                 feature={{
                   category: "Księgowość",

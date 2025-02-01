@@ -96,10 +96,11 @@ export function FlipCard({
       <div 
         className={cn(
           "group relative w-full aspect-[4/3] block sm:hidden mb-4",
-          "[perspective:1000px]",
+          "[perspective:1000px] touch-none",
           className
         )} 
         onClick={() => setIsFlipped(!isFlipped)}
+        onTouchStart={(e) => e.preventDefault()}
         {...props}
       >
         <div
@@ -110,7 +111,7 @@ export function FlipCard({
           )}
         >
           {/* Front */}
-          <div className="absolute h-full w-full [backface-visibility:hidden]">
+          <div className="absolute inset-0 h-full w-full [backface-visibility:hidden] [transform:translateZ(0)]">
             <img
               {...{
                 src: image,
@@ -127,8 +128,8 @@ export function FlipCard({
           {/* Back */}
           <div
             className={cn(
-              "absolute h-full w-full rounded-2xl bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6",
-              "text-gray-800 [backface-visibility:hidden] shadow-lg",
+              "absolute inset-0 h-full w-full rounded-2xl bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6",
+              "text-gray-800 [backface-visibility:hidden] [transform:translateZ(0)] shadow-lg",
               self[1]
             )}
           >

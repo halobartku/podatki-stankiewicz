@@ -67,8 +67,8 @@ function MainContent() {
         }
         setCurrentSection(id)
       } else {
-        // Basic anchor navigation for mobile
-        window.location.hash = id;
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setCurrentSection(id);
       }
     }
   }
@@ -123,76 +123,78 @@ function MainContent() {
   useEffect(() => {
     if (isMobile) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      if (e.target instanceof Element) {
-        const targetElement = e.target as Element
-        if (
-          targetElement.tagName === 'SELECT' ||
-          targetElement.closest('select') ||
-          targetElement.closest('.dropdown-content')
-        ) {
-          return
-        }
-      }
-      
-      e.preventDefault()
-      
-      if (isScrolling || !containerRef.current) return
-
-      const now = Date.now()
-      
-      if (now - lastAccumulatorReset.current > ACCUMULATOR_RESET_DELAY) {
-        scrollAccumulator.current = 0
-        lastAccumulatorReset.current = now
-      }
-
-      if (now - lastScrollTime.current < SCROLL_COOLDOWN) {
+  const handleWheel = (e: WheelEvent) => {
+    if (isMobile) return;
+    
+    if (e.target instanceof Element) {
+      const targetElement = e.target as Element
+      if (
+        targetElement.tagName === 'SELECT' ||
+        targetElement.closest('select') ||
+        targetElement.closest('.dropdown-content')
+      ) {
         return
       }
+    }
+    
+    e.preventDefault()
+    
+    if (isScrolling || !containerRef.current) return
 
-      const isTouchpad = Math.abs(e.deltaY) < 50
-      
-      let normalizedDelta = e.deltaY
-      if (isTouchpad) {
-        normalizedDelta *= touchpadMultiplier
-      } else if (e.deltaMode === 1) {
-        normalizedDelta *= 8
-      } else if (e.deltaMode === 2) {
-        normalizedDelta *= window.innerHeight
-      }
-
-      if (Math.sign(normalizedDelta) !== Math.sign(lastDelta.current)) {
-        scrollAccumulator.current = 0
-      }
-      lastDelta.current = normalizedDelta
-
-      scrollAccumulator.current += normalizedDelta
-
-      if (Math.abs(scrollAccumulator.current) < SCROLL_THRESHOLD) {
-        return
-      }
-
-      setIsScrolling(true)
-      lastScrollTime.current = now
-      
-      const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
-      let nextSection = currentSection
-      
-      if (scrollAccumulator.current < 0 && currentIndex > 0) {
-        nextSection = navigationSections[currentIndex - 1].id
-      } else if (scrollAccumulator.current > 0 && currentIndex < navigationSections.length - 1) {
-        nextSection = navigationSections[currentIndex + 1].id
-      }
-      
+    const now = Date.now()
+    
+    if (now - lastAccumulatorReset.current > ACCUMULATOR_RESET_DELAY) {
       scrollAccumulator.current = 0
       lastAccumulatorReset.current = now
-      
-      handleNavigate(nextSection)
-      
-      setTimeout(() => {
-        setIsScrolling(false)
-      }, SCROLL_COOLDOWN)
     }
+
+    if (now - lastScrollTime.current < SCROLL_COOLDOWN) {
+      return
+    }
+
+    const isTouchpad = Math.abs(e.deltaY) < 50
+    
+    let normalizedDelta = e.deltaY
+    if (isTouchpad) {
+      normalizedDelta *= touchpadMultiplier
+    } else if (e.deltaMode === 1) {
+      normalizedDelta *= 8
+    } else if (e.deltaMode === 2) {
+      normalizedDelta *= window.innerHeight
+    }
+
+    if (Math.sign(normalizedDelta) !== Math.sign(lastDelta.current)) {
+      scrollAccumulator.current = 0
+    }
+    lastDelta.current = normalizedDelta
+
+    scrollAccumulator.current += normalizedDelta
+
+    if (Math.abs(scrollAccumulator.current) < SCROLL_THRESHOLD) {
+      return
+    }
+
+    setIsScrolling(true)
+    lastScrollTime.current = now
+    
+    const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
+    let nextSection = currentSection
+    
+    if (scrollAccumulator.current < 0 && currentIndex > 0) {
+      nextSection = navigationSections[currentIndex - 1].id
+    } else if (scrollAccumulator.current > 0 && currentIndex < navigationSections.length - 1) {
+      nextSection = navigationSections[currentIndex + 1].id
+    }
+    
+    scrollAccumulator.current = 0
+    lastAccumulatorReset.current = now
+    
+    handleNavigate(nextSection)
+    
+    setTimeout(() => {
+      setIsScrolling(false)
+    }, SCROLL_COOLDOWN)
+  }
 
     const container = containerRef.current
     if (container) {
@@ -205,6 +207,7 @@ function MainContent() {
       }
     }
   }, [currentSection, isScrolling])
+
 
   // Desktop-only intersection observer
   useEffect(() => {
@@ -247,8 +250,8 @@ function MainContent() {
         <main 
           ref={containerRef}
           className={cn(
-            "relative z-10 flex-1 w-full touch-manipulation touch-scroll-momentum",
-            isMobile ? "block" : "overscroll-none flex snap-x snap-mandatory"
+            "relative z-10 flex-1 w-full",
+            isMobile ? "block overflow-y-auto overflow-x-hidden" : "overscroll-none flex snap-x snap-mandatory"
           )}
         >
           {navigationSections.map((section, index) => (

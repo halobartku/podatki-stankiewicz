@@ -49,21 +49,6 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
     }
   }, [isOpen])
 
-  // Update navigation state when scrolling on mobile
-  React.useEffect(() => {
-    const isMobile = window.innerWidth < 1024;
-    if (!isMobile) return;
-
-    const handleScroll = () => {
-      // Close mobile menu when scrolling
-      if (isOpen) {
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isOpen]);
 
   return (
     <>
@@ -84,7 +69,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm lg:hidden touch-none"
+            className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm lg:hidden"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -92,7 +77,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-[280px] bg-white shadow-xl overflow-hidden touch-none"
+              className="fixed inset-y-0 left-0 w-[280px] bg-white shadow-xl"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex flex-col h-full">
@@ -102,7 +87,7 @@ export const Navigation: React.FC<Partial<NavigationProps>> = ({
                       {...{
                         src: logo,
                         alt: "Logo",
-                        className: "h-12 object-contain"
+                        className: "h-14 w-14 object-contain"
                       } as DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>}
                     />
                     <div className="text-sm font-medium text-primary-600 leading-tight">

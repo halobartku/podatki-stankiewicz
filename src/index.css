@@ -14,41 +14,40 @@ body {
 /* Mobile viewport handling */
 @media (max-width: 1023px) {
   html {
-    width: 100%;
-    position: relative;
+    overflow-x: hidden;
+    height: 100%;
   }
 
   body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: fixed;
     width: 100%;
-    position: relative;
   }
 
   #root {
-    width: 100%;
-    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
   }
 
   main {
     width: 100%;
-    position: relative;
-    touch-action: manipulation;
-    -webkit-overflow-scrolling: touch;
+    height: auto;
   }
 
   section {
-    min-height: 100vh;
     width: 100%;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    touch-action: manipulation;
-    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
   }
 
   /* Prevent content overflow */
   [class*="grid"] {
-    padding: 0 1rem;
     width: 100%;
-    max-width: 100%;
+    padding: 0 1rem;
   }
   
   img, video, iframe {
