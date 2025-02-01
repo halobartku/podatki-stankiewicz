@@ -43,7 +43,18 @@ export default {
       rotate: {
         'y-180': '180deg',
       },
+      padding: {
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.touch-scroll-momentum': {
+          '-webkit-overflow-scrolling': 'touch',
+        },
+      })
+    }
+  ],
 }

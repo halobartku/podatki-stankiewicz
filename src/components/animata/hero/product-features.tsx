@@ -66,46 +66,50 @@ function FeatureCard({ feature, className, zIndexOffset = 0, ...props }: Feature
     </>
   );
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
   return (
     <>
       {/* Desktop version with animations */}
-      <motion.div
-        className={cn(
-          "relative rounded-2xl shadow-lg cursor-pointer overflow-hidden perspective-[1000px]",
-          "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-300",
-          "hover:before:bg-primary-500/5",
-          "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_4px_16px_rgba(0,0,0,0.08)] after:transition-all after:duration-300 after:ease-out",
-          "hover:after:opacity-100 hover:after:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
-          "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-105",
-          "hidden sm:flex"
-        )}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => {
-          setIsHovered(false);
-          x.set(0.5);
-          y.set(0.5);
-        }}
-        whileHover={{ 
-          scale: 1.01,
-          transition: { 
-            type: "spring",
-            stiffness: 200,
-            damping: 20
-          }
-        }}
-        {...props}
-      >
-        {content}
-        <div 
-          className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
-        />
-      </motion.div>
+      {!isMobile && (
+        <motion.div
+          className={cn(
+            "relative rounded-2xl shadow-lg cursor-pointer overflow-hidden perspective-[1000px]",
+            "before:absolute before:inset-0 before:z-10 before:bg-primary-500/0 before:transition-colors before:duration-300",
+            "hover:before:bg-primary-500/5",
+            "after:absolute after:inset-0 after:z-20 after:rounded-2xl after:opacity-0 after:shadow-[0_4px_16px_rgba(0,0,0,0.08)] after:transition-all after:duration-300 after:ease-out",
+            "hover:after:opacity-100 hover:after:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
+            "[&>div.shine]:hover:translate-x-[200%] [&>div.shine]:hover:scale-105",
+            "hidden sm:flex"
+          )}
+          style={{
+            rotateX,
+            rotateY,
+            transformStyle: "preserve-3d",
+          }}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            x.set(0.5);
+            y.set(0.5);
+          }}
+          whileHover={{ 
+            scale: 1.01,
+            transition: { 
+              type: "spring",
+              stiffness: 200,
+              damping: 20
+            }
+          }}
+          {...props}
+        >
+          {content}
+          <div 
+            className="shine absolute inset-y-0 -left-[100%] w-1/2 z-20 rotate-[25deg] bg-gradient-to-r from-transparent via-white/10 to-transparent transform transition-all duration-500 ease-in-out will-change-transform"
+          />
+        </motion.div>
+      )}
       {/* Mobile version without animations */}
       <div
         className="relative rounded-2xl shadow-lg overflow-hidden flex sm:hidden h-[200px] mb-4"

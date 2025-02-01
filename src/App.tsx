@@ -45,6 +45,7 @@ function MainContent() {
   const ACCUMULATOR_RESET_DELAY = 300
   const lastAccumulatorReset = useRef(Date.now())
   const touchpadMultiplier = 0.2
+  const isMobile = window.innerWidth < 1024
 
   useEffect(() => {
     const consent = localStorage.getItem('cookieConsent')
@@ -54,7 +55,7 @@ function MainContent() {
   const handleNavigate = (id: string) => {
     const section = sectionsRef.current[navigationSections.findIndex(section => section.id === id)]
     if (section) {
-      if (window.innerWidth >= 1024) {
+      if (!isMobile) {
         const container = containerRef.current;
         if (container) {
           const sectionIndex = navigationSections.findIndex(section => section.id === id);
@@ -64,15 +65,17 @@ function MainContent() {
             behavior: 'smooth'
           });
         }
+        setCurrentSection(id)
       } else {
-        // Simple scroll to section for mobile
-        section.scrollIntoView({ behavior: 'smooth' });
+        // Basic anchor navigation for mobile
+        window.location.hash = id;
       }
-      setCurrentSection(id)
     }
   }
 
   useEffect(() => {
+    if (isMobile) return;
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
         return
@@ -118,7 +121,7 @@ function MainContent() {
 
   // Desktop-only wheel event handling
   useEffect(() => {
-    if (window.innerWidth < 1024) return;
+    if (isMobile) return;
 
     const handleWheel = (e: WheelEvent) => {
       if (e.target instanceof Element) {
@@ -205,7 +208,7 @@ function MainContent() {
 
   // Desktop-only intersection observer
   useEffect(() => {
-    if (window.innerWidth < 1024) return;
+    if (isMobile) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -244,9 +247,8 @@ function MainContent() {
         <main 
           ref={containerRef}
           className={cn(
-            "relative z-10 flex-1 w-full",
-            "lg:overscroll-none lg:flex lg:snap-x lg:snap-mandatory",
-            "block"
+            "relative z-10 flex-1 w-full touch-manipulation touch-scroll-momentum",
+            isMobile ? "block" : "overscroll-none flex snap-x snap-mandatory"
           )}
         >
           {navigationSections.map((section, index) => (
@@ -258,7 +260,7 @@ function MainContent() {
               id={section.id}
               className={cn(
                 "relative w-full min-h-screen",
-                "lg:overscroll-none lg:snap-start lg:min-w-full lg:w-screen lg:h-screen lg:flex-shrink-0",
+                !isMobile && "overscroll-none snap-start min-w-full w-screen h-screen flex-shrink-0",
                 index === navigationSections.length - 1 ? 'pb-safe' : ''
               )}
             >
